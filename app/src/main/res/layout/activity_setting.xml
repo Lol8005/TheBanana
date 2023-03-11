@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    tools:context=".Setting">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3ED8D8D8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/btn_close_setting"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:backgroundTint="#00FFFFFF"
+                android:contentDescription="close setting"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/closeicon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:background="@drawable/settingframe"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <!-- Source code: https://stackoverflow.com/questions/41693154/custom-seekbar-thumb-size-color-and-background           -->
+
+            <ImageButton
+                android:id="@+id/btn_volume"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="0.2"
+                android:background="#00FFFFFF"
+                android:contentDescription="volume"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/volumeicon" />
+
+            <SeekBar
+                android:id="@+id/seekBar_volume"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="50dp"
+                android:layout_weight="1"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/seekbar_style"
+                android:splitTrack="false"
+                android:thumb="@drawable/custom_thumb"
+                android:thumbOffset="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:background="@drawable/settingframe"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <!-- Source code: https://stackoverflow.com/questions/41693154/custom-seekbar-thumb-size-color-and-background           -->
+
+            <ImageButton
+                android:id="@+id/btn_music"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="0.2"
+                android:background="#00FFFFFF"
+                android:contentDescription="music"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/musicicon" />
+
+            <SeekBar
+                android:id="@+id/seekBar_music"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="50dp"
+                android:layout_weight="1"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/seekbar_style"
+                android:splitTrack="false"
+                android:thumb="@drawable/custom_thumb"
+                android:thumbOffset="15dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

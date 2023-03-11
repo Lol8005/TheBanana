@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "691684878705",
+    "project_id": "stiventure",
+    "storage_bucket": "stiventure.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691684878705:android:1099d6e7ef38ade354eed0",
+        "android_client_info": {
+          "package_name": "com.example.stiventure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691684878705-bu75n6l6j0mk260shidup0dbpvi8df27.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9hzO5IQjUJDng0sM8eDfmr9SX9IxA8kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691684878705-bu75n6l6j0mk260shidup0dbpvi8df27.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
