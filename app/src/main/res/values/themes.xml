@@ -16,7 +16,16 @@
     </style>
 
     <!--    Source https://stackoverflow.com/questions/21814825/you-need-to-use-a-theme-appcompat-theme-or-descendant-with-this-activity -->
-    <style name="Theme.AppCompat.Translucent" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.AppCompat.Translucent.setting" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:background">#3ED8D8D8</item> <!-- Or any transparency or color you need -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+    </style>
+
+    <style name="Theme.AppCompat.Translucent.registerlogin" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:background">#3ED8D8D8</item> <!-- Or any transparency or color you need -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

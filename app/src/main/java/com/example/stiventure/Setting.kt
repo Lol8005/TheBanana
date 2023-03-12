@@ -17,6 +17,8 @@ class Setting : AppCompatActivity() {
     lateinit var btn_music: ImageButton
     lateinit var seekBar_music: SeekBar
 
+    lateinit var SLD: SaveLoadData
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
@@ -44,8 +46,8 @@ class Setting : AppCompatActivity() {
 
         //region Set Setting Value
 
-        var SLD = SaveLoadData()
-        SLD.LoadData(applicationContext)
+        SLD = SaveLoadData()
+        SLD.LoadData(this)
 
         seekBar_volume.progress = SLD.volume
         seekBar_music.progress = SLD.music

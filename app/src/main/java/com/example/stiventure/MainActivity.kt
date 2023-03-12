@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         //endregion
 
+        checkPlayerLogin()
+
         btn_play = findViewById(R.id.btn_play)
         btn_setting = findViewById(R.id.btn_setting)
         btn_exit = findViewById(R.id.btn_exit)
@@ -56,5 +58,10 @@ class MainActivity : AppCompatActivity() {
 
             finish()
         }
+    }
+
+    fun checkPlayerLogin(){
+        startActivity(Intent(this, LoginAccount::class.java))
+        overridePendingTransition(0, 0) //Remove transition animation
     }
 }
