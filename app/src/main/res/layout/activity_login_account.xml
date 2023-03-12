@@ -5,7 +5,6 @@
     android:id="@+id/constraintlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8A888888"
     tools:context=".RegisterAccount">
 
     <LinearLayout
@@ -167,7 +166,7 @@
                 android:paddingBottom="12dp"
                 android:text="Don't have account?"
                 android:textSize="15sp"
-                app:cornerRadius="15dp" />
+                app:cornerRadius="15dp"/>
         </LinearLayout>
     </LinearLayout>
 

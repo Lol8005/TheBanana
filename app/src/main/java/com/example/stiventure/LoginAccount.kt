@@ -93,7 +93,6 @@ class LoginAccount : AppCompatActivity() {
     }
 
     private fun checkIfTextEnterFulfillRequirement(): Boolean{
-        Log.e("value", (username.length >= 6 && password.length >= 6 && !edt_username.text.contains(Regex("\\W"))).toString())
         return username.length >= 6 && password.length >= 6 && !edt_username.text.contains(Regex("\\W"))
     }
 
