@@ -51,6 +51,7 @@
                 android:ems="10"
                 android:hint="No space and symbols, min 6 characters"
                 android:inputType="textPersonName" />
+
         </LinearLayout>
 
         <LinearLayout
