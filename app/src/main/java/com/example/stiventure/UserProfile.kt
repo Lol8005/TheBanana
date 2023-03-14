@@ -64,6 +64,11 @@ class UserProfile : AppCompatActivity() {
 
                 txtUName.setText("Hi, ${SLD.username}")
             }
+<<<<<<< HEAD
+=======
+        }else{
+            txtUName.setText("Hi, ${SLD.username}")
+>>>>>>> origin/master
         }
 
         btn_logout.setOnClickListener{
@@ -88,4 +93,8 @@ class UserProfile : AppCompatActivity() {
 
         //endregion
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master
