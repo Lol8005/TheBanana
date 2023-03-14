@@ -9,86 +9,101 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/game_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:fontFamily="@font/nice_sugar"
-        android:text="Stiventure"
-        android:textAlignment="center"
-        android:textSize="96sp"
+    <ImageButton
+        android:id="@+id/btn_profile"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:adjustViewBounds="true"
+        android:contentDescription="profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profileicon"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"/>
 
     <LinearLayout
-        android:id="@+id/LinearLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_title">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Space
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/game_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:fontFamily="@font/nice_sugar"
+            android:text="Education"
+            android:textAlignment="center"
+            android:textSize="70sp" />
 
-        <ImageButton
-            android:id="@+id/btn_play"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/backgroundframe"
-            android:contentDescription="play"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/playicon"
-            android:foreground="?android:attr/selectableItemBackground"/>
-
-        <Space
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/LinearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/btn_setting"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/backgroundframe"
-            android:contentDescription="setting"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/settingicon"
-            android:foreground="?android:attr/selectableItemBackground"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/btn_play"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/backgroundframe"
+                android:contentDescription="play"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/playicon" />
 
-        <ImageButton
-            android:id="@+id/btn_exit"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/backgroundframe"
-            android:contentDescription="quit"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/quiticon"
-            android:foreground="?android:attr/selectableItemBackground"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/btn_setting"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/backgroundframe"
+                android:contentDescription="setting"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/settingicon" />
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/btn_exit"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/backgroundframe"
+                android:contentDescription="quit"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/quiticon" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,7 +9,9 @@ class SaveLoadData {
     val SHARED_PREFS: String = "sharedPrefs"
 
     var username: String = ""
+    var email: String = ""
     var password: String = ""
+
     var volume: Int = 0
     var music: Int = 0
 
@@ -17,6 +19,7 @@ class SaveLoadData {
         var sharedPreferences:SharedPreferences = activity.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
 
         username = sharedPreferences.getString("username", "").toString()
+        email = sharedPreferences.getString("email", "").toString()
         password = sharedPreferences.getString("password", "").toString()
 
         volume = sharedPreferences.getInt("volume", 100)
@@ -28,6 +31,7 @@ class SaveLoadData {
         var editor: SharedPreferences.Editor = sharedPreferences.edit()
 
         editor.putString("username", username)
+        editor.putString("email", email)
         editor.putString("password", password)
 
         editor.putInt("volume", volume)
