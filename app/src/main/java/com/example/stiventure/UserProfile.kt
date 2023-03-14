@@ -64,6 +64,8 @@ class UserProfile : AppCompatActivity() {
 
                 txtUName.setText("Hi, ${SLD.username}")
             }
+        }else{
+            txtUName.setText("Hi, ${SLD.username}")
         }
 
         btn_logout.setOnClickListener{
