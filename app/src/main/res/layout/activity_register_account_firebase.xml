@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".RegisterAccount">
+    tools:context=".RegisterAccountFirebase">
 
 
     <LinearLayout
@@ -16,6 +16,37 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout16"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:orientation="horizontal"
+            android:paddingLeft="40dp"
+            android:paddingTop="5dp"
+            android:paddingRight="40dp">
+
+            <TextView
+                android:id="@+id/txtUsername"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:fontFamily="@font/nice_sugar"
+                android:text="Username"
+                android:textAlignment="textStart"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/edtUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Symbol not allowed"
+                android:inputType="textPersonName" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout12"
@@ -28,24 +59,24 @@
             android:paddingRight="40dp">
 
             <TextView
-                android:id="@+id/txtUsernameR"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtEmailL"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".1"
+                android:layout_weight="1"
                 android:background="#00FFFFFF"
                 android:fontFamily="@font/nice_sugar"
-                android:text="Username"
-                android:textAlignment="center"
-                android:textSize="30sp" />
+                android:text="Email"
+                android:textAlignment="textStart"
+                android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/edtUsernameR"
+                android:id="@+id/edtEmailL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="No space and symbols, min 6 characters"
-                android:inputType="textPersonName" />
+                android:inputType="textEmailAddress"
+                android:hint="Enter your email"/>
         </LinearLayout>
 
         <LinearLayout
@@ -59,23 +90,23 @@
             android:paddingRight="40dp">
 
             <TextView
-                android:id="@+id/txtPasswordR"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtPasswordL"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".1"
+                android:layout_weight="1"
                 android:background="#00FFFFFF"
                 android:fontFamily="@font/nice_sugar"
                 android:text="Password"
-                android:textAlignment="center"
-                android:textSize="30sp" />
+                android:textAlignment="textStart"
+                android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/edtPasswordR"
+                android:id="@+id/edtPasswordL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="min 6 characters"
+                android:hint="min 8 characters"
                 android:inputType="textPassword" />
 
         </LinearLayout>
@@ -86,26 +117,21 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:orientation="horizontal"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
 
             <Button
-                android:id="@+id/btn_clearR"
+                android:id="@+id/btn_clearL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:width="30dp"
+                android:width="35dp"
                 android:fontFamily="@font/nice_sugar"
-                android:paddingTop="21dp"
+                android:paddingTop="18dp"
                 android:paddingBottom="14dp"
                 android:text="Clear"
-                android:textSize="20sp"
-                app:cornerRadius="20dp" />
+                android:textSize="15sp"
+                app:cornerRadius="12dp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -113,22 +139,17 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/btn_register"
+                android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:width="30dp"
+                android:width="35dp"
                 android:fontFamily="@font/nice_sugar"
-                android:paddingTop="21dp"
+                android:paddingTop="18dp"
                 android:paddingBottom="14dp"
                 android:text="Register"
-                android:textSize="20sp"
-                app:cornerRadius="20dp" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:textSize="15sp"
+                app:cornerRadius="15dp" />
 
         </LinearLayout>
 
@@ -138,19 +159,21 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:orientation="horizontal"
-            android:paddingLeft="135dp"
-            android:paddingTop="5dp"
-            android:paddingRight="135dp">
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp">
 
             <Button
-                android:id="@+id/btn_go_login"
-                android:layout_width="wrap_content"
+                android:id="@+id/btn_go_register"
+                android:layout_width="159dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#00FFFFFF"
+                android:backgroundTint="#00FFFFFF"
                 android:fontFamily="@font/nice_sugar"
                 android:paddingTop="19dp"
                 android:paddingBottom="12dp"
                 android:text="Have account?"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 app:cornerRadius="15dp" />
         </LinearLayout>
