@@ -19,7 +19,7 @@ class UserProfile : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var DB_Reference: DatabaseReference
 
-    lateinit var SLD:SaveLoadData
+    lateinit var SLD: SaveLoadData
 
     lateinit var txtUName: TextView
     lateinit var btn_logout: Button
@@ -31,7 +31,7 @@ class UserProfile : AppCompatActivity() {
 
         //region Hide toolbar
 
-        var HSB: HideSystemBar = HideSystemBar()
+        val HSB = HideSystemBar()
         HSB.hide(window)
 
         //endregion
@@ -56,23 +56,20 @@ class UserProfile : AppCompatActivity() {
 
         //region Button On Click Listener
 
-        if(SLD.username == ""){
+        if (SLD.username == "") {
             val id = auth.currentUser?.uid.toString()
-            DB_Reference.child("Users").child(id).child("username").get().addOnSuccessListener{
+            DB_Reference.child("Users").child(id).child("username").get().addOnSuccessListener {
                 SLD.username = it.value.toString()
                 SaveLoadData()
 
                 txtUName.setText("Hi, ${SLD.username}")
             }
-<<<<<<< HEAD
-=======
-        }else{
+        } else {
             txtUName.setText("Hi, ${SLD.username}")
->>>>>>> origin/master
         }
 
-        btn_logout.setOnClickListener{
-            if(auth.currentUser != null){
+        btn_logout.setOnClickListener {
+            if (auth.currentUser != null) {
                 auth.signOut()
 
                 SLD.username = ""
@@ -87,14 +84,10 @@ class UserProfile : AppCompatActivity() {
             }
         }
 
-        btn_return.setOnClickListener{
+        btn_return.setOnClickListener {
             finish()
         }
 
         //endregion
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/master
