@@ -37,6 +37,13 @@ class RegisterAccountFirebase : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_account_firebase)
 
+        //region Hide toolbar
+
+        val HSB = HideSystemBar()
+        HSB.hide(window)
+
+        //endregion
+
         //region Initialize Variable
 
         auth = Firebase.auth
