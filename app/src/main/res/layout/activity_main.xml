@@ -5,7 +5,7 @@
     android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2196F3"
+    android:background="@drawable/bananathemebackground"
     tools:context=".MainActivity">
 
 
@@ -13,16 +13,16 @@
         android:id="@+id/btn_profile"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:background="#00FFFFFF"
-        android:scaleType="fitCenter"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:adjustViewBounds="true"
+        android:background="#00000000"
         android:contentDescription="profile"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profileicon"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"/>
+        app:srcCompat="@drawable/profileicon" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nice_sugar"
-            android:text="Education"
+            android:text="The Banana"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="70sp" />
 
@@ -44,8 +45,7 @@
             android:id="@+id/LinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="18dp">
 
             <Space
                 android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/backgroundframe"
+                android:background="@drawable/backgroundfame"
                 android:contentDescription="play"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:padding="20dp"
