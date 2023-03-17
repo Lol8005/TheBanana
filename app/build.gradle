@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.stiventure'
+    namespace 'com.example.thebanana'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.stiventure"
+        applicationId "com.example.thebanana"
         minSdk 28
         targetSdk 33
         versionCode 1

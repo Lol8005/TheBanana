@@ -1,8 +1,7 @@
-package com.example.stiventure
+package com.example.thebanana
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 
 class SaveLoadData {
 

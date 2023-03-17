@@ -1,6 +1,5 @@
-package com.example.stiventure
+package com.example.thebanana
 
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowInsets
