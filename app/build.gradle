@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.thebanana'
+    namespace 'com.banedu.thebanana'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.thebanana"
+        applicationId "com.banedu.thebanana"
         minSdk 28
         targetSdk 33
         versionCode 1

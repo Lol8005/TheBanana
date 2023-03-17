@@ -26,16 +26,6 @@
             android:theme="@style/Theme.AppCompat.Translucent.registerlogin"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".LoginAccount"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Translucent.registerlogin"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".RegisterAccount"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.Translucent.registerlogin"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".Setting"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Translucent.setting"

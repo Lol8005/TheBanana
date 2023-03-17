@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "691684878705",
-    "project_id": "stiventure",
-    "storage_bucket": "stiventure.appspot.com"
+    "project_number": "208325190170",
+    "firebase_url": "https://thebanana-537eb-default-rtdb.firebaseio.com",
+    "project_id": "thebanana-537eb",
+    "storage_bucket": "thebanana-537eb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:691684878705:android:3c9c03b3099d70ca54eed0",
+        "mobilesdk_app_id": "1:208325190170:android:37f6329f39e0ab823fe7a3",
         "android_client_info": {
-          "package_name": "com.example.stiventure"
+          "package_name": "com.banedu.thebanana"
         }
       },
       "oauth_client": [
         {
-          "client_id": "691684878705-bu75n6l6j0mk260shidup0dbpvi8df27.apps.googleusercontent.com",
+          "client_id": "208325190170-mf8m05hvu6i6m80tqlgki5c19m2731g1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA9hzO5IQjUJDng0sM8eDfmr9SX9IxA8kg"
+          "current_key": "AIzaSyBoj_ATaH5m5uoL-wNNHBOmdVYcuhDQMiE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "691684878705-bu75n6l6j0mk260shidup0dbpvi8df27.apps.googleusercontent.com",
+              "client_id": "208325190170-mf8m05hvu6i6m80tqlgki5c19m2731g1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

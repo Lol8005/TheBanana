@@ -1,4 +1,4 @@
-package com.example.thebanana
+package com.banedu.thebanana
 
 import android.view.View
 import android.view.Window

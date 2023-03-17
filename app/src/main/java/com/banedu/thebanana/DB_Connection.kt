@@ -1,4 +1,4 @@
-package com.example.thebanana
+package com.banedu.thebanana
 
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -10,7 +10,7 @@ class DB_Connection {
     private lateinit var firebaseDB: FirebaseDatabase
     private lateinit var DB_Reference: DatabaseReference
 
-    var DB_path = "https://stiventure-default-rtdb.firebaseio.com/"
+    var DB_path = "https://thebanana-537eb-default-rtdb.firebaseio.com/"
 
     fun connect(): DatabaseReference{
         firebaseDB = Firebase.database(DB_path)
