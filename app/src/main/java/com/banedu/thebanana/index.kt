@@ -19,10 +19,10 @@ class index : AppCompatActivity() {
     lateinit var txtUserName: TextView
     lateinit var txtBananaCount: TextView
     lateinit var imgBtnSettings: ImageButton
-    lateinit var buttonQuiz: Button
-    lateinit var buttonRank: Button
-    lateinit var buttonFlashCards: Button
-    lateinit var buttonStudyTimer: Button
+    lateinit var buttonQuiz: ImageButton
+    lateinit var buttonRank: ImageButton
+    lateinit var buttonFlashCards: ImageButton
+    lateinit var buttonStudyTimer: ImageButton
     val database= Firebase.database
 
     //TODO: define auth & storage
