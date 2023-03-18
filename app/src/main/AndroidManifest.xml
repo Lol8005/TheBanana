@@ -15,6 +15,9 @@
         android:theme="@style/thebanana"
         tools:targetApi="31">
         <activity
+            android:name=".index"
+            android:exported="false" />
+        <activity
             android:name=".UserProfile"
             android:exported="false" />
         <activity

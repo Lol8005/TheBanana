@@ -42,6 +42,9 @@ class MainActivity : AppCompatActivity() {
 
         btn_play.setOnClickListener{
             clickbuttonSFX.start()
+
+            startActivity(Intent(this, index::class.java))
+            overridePendingTransition(0, 0) //Remove transition animation
         }
 
         btn_setting.setOnClickListener{

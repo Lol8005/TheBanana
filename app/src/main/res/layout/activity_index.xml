@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bananathemebackground"
+    android:orientation="vertical"
+    tools:context=".index">
+
+    <!--Card View 1: Profile Picture-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/RoundCorner1"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        app:cardCornerRadius="100dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/imgBtnPfp"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:backgroundTint="#ffffff"-->
+<!--            android:contentDescription="ProfilePic"-->
+<!--            android:padding="5dp"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            app:srcCompat="@drawable/banana" />-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+    <ImageButton
+        android:id="@+id/imgBtnPfp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circularbananaframe"
+        android:backgroundTint="#ffffff"
+        android:contentDescription="ProfilePic"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/banana" />
+
+    <!--Card View 2: User Name-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/RoundCornerTV1"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="#A4DDF6"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintLeft_toRightOf="@id/imgBtnPfp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--Card View 3: Banana Icon-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/RoundCorner2"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        app:cardCornerRadius="100dp"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/RoundCornerTV1"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageViewBanana"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:backgroundTint="#ffffff"-->
+<!--            android:contentDescription="Banana"-->
+<!--            android:padding="5dp"-->
+<!--            android:scaleType="fitCenter"-->
+<!--            app:srcCompat="@drawable/banana" />-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+    <ImageView
+        android:id="@+id/imageViewBanana"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/circularbananaframe"
+        android:adjustViewBounds="true"
+        android:backgroundTint="#ffffff"
+        android:contentDescription="Banana"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/banana"
+        app:layout_constraintLeft_toRightOf="@id/RoundCornerTV1"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!--Card View 4: Banana Amount-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/RoundCornerTV2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="60dp"
+        android:backgroundTint="#A4DDF6"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintLeft_toRightOf="@id/imageViewBanana"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtBananaCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--Settings Button-->
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/RoundCorner3"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_marginLeft="60dp"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_marginEnd="15dp"-->
+<!--        app:cardCornerRadius="100dp"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/RoundCornerTV2"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/imgBtnSettings"-->
+<!--            android:layout_width="65dp"-->
+<!--            android:layout_height="65dp"-->
+<!--            android:layout_alignParentRight="false"-->
+<!--            android:layout_marginLeft="-7dp"-->
+<!--            android:layout_marginTop="-8dp"-->
+<!--            android:adjustViewBounds="true"-->
+<!--            android:backgroundTint="#A4DDF6"-->
+<!--            android:contentDescription="setting"-->
+<!--            android:padding="13dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:srcCompat="@drawable/settingicon" />-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+    <ImageButton
+        android:id="@+id/imgBtnSettings"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:padding="5dp"
+        android:background="@drawable/settingiconframeblue"
+        android:adjustViewBounds="true"
+        android:contentDescription="setting"
+        android:scaleType="fitCenter"
+        app:layout_constraintLeft_toRightOf="@id/RoundCornerTV2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settingicon" />
+
+    <!--Logo-->
+    <TextView
+        android:id="@+id/edu_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/nice_sugar"
+        android:text="The Banana"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="70sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgBtnSettings" />
+
+    <!--Shortcuts to each Page-->
+    <!--Shortcuts To Quiz Page-->
+    <Button
+        android:id="@+id/buttonQuiz"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="270dp"
+        android:backgroundTint="#A4DDF6"
+        android:drawableTop="@drawable/banana"
+        android:paddingTop="15dp"
+        android:text="Quiz"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Shortcuts To Ranking Page-->
+    <Button
+        android:id="@+id/buttonRank"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="263dp"
+        android:layout_marginTop="270dp"
+        android:backgroundTint="#A4DDF6"
+        android:drawableTop="@drawable/banana"
+        android:paddingTop="15dp"
+        android:text="Ranking"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Shortcuts To Flashcards Page-->
+    <Button
+        android:id="@+id/buttonFlashCards"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="470dp"
+        android:backgroundTint="#A4DDF6"
+        android:drawableTop="@drawable/banana"
+        android:paddingTop="15dp"
+        android:text="Flashcards"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--Shortcuts To Study Timer Page-->
+    <Button
+        android:id="@+id/buttonStudyTimer"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="263dp"
+        android:layout_marginTop="470dp"
+        android:backgroundTint="#A4DDF6"
+        android:drawableTop="@drawable/banana"
+        android:paddingTop="15dp"
+        android:text="Study Timer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
