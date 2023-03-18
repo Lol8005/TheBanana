@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bananathemebackground"
+    tools:context=".index">
+
+    <!--Card View 1: Profile Picture-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/RoundCorner1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp">
+
+        <ImageButton
+            android:id="@+id/imgBtnPfp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="ProfilePic"
+            android:backgroundTint="#ffffff"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/banana"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--Card View 2: User Name-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/RoundCornerTV1"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/RoundCorner1"
+        android:backgroundTint="#A4DDF6"
+        app:cardCornerRadius="20dp">
+
+        <TextView
+            android:id="@+id/txtUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--Card View 3: Banana Icon-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/RoundCorner2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:cardCornerRadius="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/RoundCornerTV1"
+        android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/imageViewBanana"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        android:contentDescription="Banana"
+        android:backgroundTint="#ffffff"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/banana"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--Card View 4: Banana Amount-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/RoundCornerTV2"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="60dp"
+        android:layout_toRightOf="@id/RoundCorner2"
+        android:backgroundTint="#A4DDF6"
+        app:cardCornerRadius="20dp">
+
+        <TextView
+            android:id="@+id/txtBananaCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--Settings Button-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/RoundCorner3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_toRightOf="@id/RoundCornerTV2"
+        app:cardCornerRadius="100dp">
+
+        <ImageButton
+            android:id="@+id/imgBtnSettings"
+            android:layout_alignParentRight="false"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="-7dp"
+            android:layout_marginTop="-8dp"
+            android:adjustViewBounds="true"
+            android:backgroundTint="#A4DDF6"
+            android:contentDescription="setting"
+            android:padding="13dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/settings" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--Logo-->
+    <TextView
+        android:id="@+id/edu_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RoundCorner3"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/nice_sugar"
+        android:text="The Banana"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:textSize="70sp" />
+
+    <!--Shortcuts to each Page-->
+    <!--Shortcuts To Quiz Page-->
+    <Button
+        android:id="@+id/buttonQuiz"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="47dp"
+        android:paddingTop="15dp"
+        android:drawableTop="@drawable/banana"
+        android:backgroundTint="#A4DDF6"
+        android:text="Quiz" />
+
+    <!--Shortcuts To Ranking Page-->
+    <Button
+        android:id="@+id/buttonRank"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="263dp"
+        android:layout_marginTop="270dp"
+        android:paddingTop="15dp"
+        android:drawableTop="@drawable/banana"
+        android:backgroundTint="#A4DDF6"
+        android:text="Ranking" />
+
+    <!--Shortcuts To Flashcards Page-->
+    <Button
+        android:id="@+id/buttonFlashCards"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="470dp"
+        android:layout_marginLeft="47dp"
+        android:paddingTop="15dp"
+        android:drawableTop="@drawable/banana"
+        android:backgroundTint="#A4DDF6"
+        android:text="Flashcards" />
+
+    <!--Shortcuts To Study Timer Page-->
+    <Button
+        android:id="@+id/buttonStudyTimer"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="263dp"
+        android:layout_marginTop="470dp"
+        android:paddingTop="15dp"
+        android:drawableTop="@drawable/banana"
+        android:backgroundTint="#A4DDF6"
+        android:text="Study Timer" />
+
+</RelativeLayout>
