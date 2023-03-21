@@ -40,10 +40,10 @@ class studyTimer : AppCompatActivity() {
 
     lateinit var runnable: Runnable
     lateinit var btnBackHomeFromST: ImageButton
-    lateinit var edtSetTime: EditText
-    lateinit var btnSetTimer: Button
-    lateinit var txtTimer: TextView
     lateinit var btnStartTimer: Button
+    lateinit var edtHours: EditText
+    lateinit var edtMinutes: EditText
+    lateinit var edtSeconds: EditText
     lateinit var txtMusicTitle: TextView
     lateinit var imgMusicCover: ImageView
     lateinit var seekbar: SeekBar
@@ -81,10 +81,10 @@ class studyTimer : AppCompatActivity() {
         //region Initialize Variable
 
         btnBackHomeFromST = findViewById(R.id.btnBackHomeFromST)
-        edtSetTime = findViewById(R.id.edtSetTime)
-        btnSetTimer = findViewById(R.id.btnSetTimer)
-        txtTimer = findViewById(R.id.txtTimer)
         btnStartTimer = findViewById(R.id.btnStartTimer)
+        edtHours = findViewById(R.id.edtHours)
+        edtMinutes = findViewById(R.id.edtMinutes)
+        edtSeconds = findViewById(R.id.edtSeconds)
         txtMusicTitle = findViewById(R.id.txtMusicTitle)
         imgMusicCover = findViewById(R.id.imgMusicCover)
         seekbar = findViewById(R.id.seekBar)
@@ -132,23 +132,10 @@ class studyTimer : AppCompatActivity() {
         }
 
         //region Time Button
-        btnStartTimer.visibility = View.INVISIBLE
 //        TODO: Set Timer
 //        TODO: Receive time length
 //        TODO: SET TEXT FOR COUNTDOWN
-        btnSetTimer.setOnClickListener {
-            if (getInputTime() == 0) {
-                var initialHour = time / 60 / 60
-                var initialMinutes = time / 60 % 60
-                var initialSeconds = time % 60
-                txtTimer.setText(String.format("%02d:%02d:%02d", initialHour, initialMinutes, initialSeconds))
-                btnStartTimer.visibility = View.VISIBLE
-                edtSetTime.setText("")
-            } else {
-                Toast.makeText(this, "Sorry!" + errorMsg, Toast.LENGTH_LONG).show()
-            }
 
-        }
 
 //      TODO: ONCE START BUTTON IS CLICKED, TIMER STARTS
         btnStartTimer.setOnClickListener {
@@ -156,10 +143,30 @@ class studyTimer : AppCompatActivity() {
                 //TODO: IF USER GAVE UP, TIMER RESET
                 resetTimer()
                 Toast.makeText(this, "Sorry! Try harder next time.", Toast.LENGTH_LONG).show()
-            } else {
+
+                edtHours.isFocusable = true
+                edtMinutes.isFocusable = true
+                edtSeconds.isFocusable = true
+
+                edtHours.isFocusableInTouchMode = true
+                edtMinutes.isFocusableInTouchMode = true
+                edtSeconds.isFocusableInTouchMode = true
+            }else if(getInputTime() == 0) {
+                var initialHour = time / 60 / 60
+                var initialMinutes = time / 60 % 60
+                var initialSeconds = time % 60
+                edtHours.setText(String.format("%02d", initialHour))
+                edtMinutes.setText(String.format("%02d", initialMinutes))
+                edtSeconds.setText(String.format("%02d", initialSeconds))
+
+                edtHours.isFocusable = false
+                edtMinutes.isFocusable = false
+                edtSeconds.isFocusable = false
+
                 btnStartTimer.setText("GIVE UP?")
                 time_in_ms = time * 1000L
                 startTimer(time_in_ms)
+
                 countdown_timer = object : CountDownTimer(time_in_ms, 1000) {
                     override fun onFinish() {
                         loadConfeti()
@@ -202,7 +209,8 @@ class studyTimer : AppCompatActivity() {
                 countdown_timer.start()
 
                 isRunning = true
-
+            }else{
+                Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
             }
         }
         //endregion
@@ -283,19 +291,46 @@ class studyTimer : AppCompatActivity() {
 
     //    To validate Time entered
     fun getInputTime(): Int {
-        var retu = 0
-        var temptime = edtSetTime.text.toString().trim()
+        var hours = edtHours.text.toString().trim()
+        var minutes = edtMinutes.text.toString().trim()
+        var seconds = edtSeconds.text.toString().trim()
 
-        if (temptime.isEmpty() or !temptime.isDigitsOnly()) {
-            errorMsg = "This field cannot be empty or contain alphabet"
-            retu = 1
-        } else if ((temptime.toInt() > 120) or (temptime.toInt() < 30)) {
-            errorMsg = "Maximum 120 Minutes. Minimum 30 Minutes."
-            retu = 1
-        } else {
-            time = temptime.toInt() * 60
+        var _totalseconds = 0
+
+        if(!hours.isEmpty()){
+            _totalseconds += hours.toInt() * 60 * 60
         }
-        return retu
+        if(!minutes.isEmpty()){
+            if(minutes.toInt() > 59) {
+                errorMsg = "Can't exceed 60."
+                return 1
+            }
+
+            _totalseconds += minutes.toInt() * 60
+        }
+        if(!seconds.isEmpty()){
+            if(seconds.toInt() > 59) {
+                errorMsg = "Can't exceed 60."
+                return 1
+            }
+
+            _totalseconds += seconds.toInt()
+        }
+
+        if(_totalseconds != 0){
+            if ((_totalseconds > 120) and (_totalseconds < 30)) {
+                errorMsg = "Maximum 120 Minutes. Minimum 30 Minutes."
+                return 1
+            }
+            else {
+                time = _totalseconds
+            }
+        }else{
+            errorMsg = "Please enter the timer."
+            return 1
+        }
+
+        return 0
     }
 
     //TODO: IF SUCCEED, ADD RECORD
@@ -312,7 +347,6 @@ class studyTimer : AppCompatActivity() {
         updateTextUI()
         isRunning = false
         countdown_timer.cancel()
-        btnStartTimer.visibility = View.INVISIBLE
         btnStartTimer.setText("START!")
     }
 
@@ -322,7 +356,9 @@ class studyTimer : AppCompatActivity() {
         val minute = (time_in_ms / 1000) / 60 % 60
         val seconds = (time_in_ms / 1000) % 60
 
-        txtTimer.setText(String.format("%02d:%02d:%02d", hour, minute, seconds))
+        edtHours.setText(String.format("%02d", hour))
+        edtMinutes.setText(String.format("%02d", minute))
+        edtSeconds.setText(String.format("%02d", seconds))
     }
 
     //    To run confetti
