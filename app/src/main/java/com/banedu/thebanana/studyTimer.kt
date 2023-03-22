@@ -264,9 +264,13 @@ class studyTimer : AppCompatActivity() {
         //region Stats
         btnGenerate.setOnClickListener {
 
-            DB_Reference.child("Study Time Record").child(uid).child(current.toString())
-                .child("study_time_length").get().addOnSuccessListener {
-                txtTotalTimeToday.setText("${it.value.toString()} minutes")
+            DB_Reference.child("Study Time Record").child(uid).child(current.toString()).child("study_time_length").get().addOnSuccessListener {
+                if(it.value != null){
+                    txtTotalTimeToday.setText("${it.value.toString()} minutes")
+                }
+                else{
+                    txtTotalTimeToday.setText("0 minutes")
+                }
             }
 
             var totalTimeStudy = 0
@@ -344,7 +348,11 @@ class studyTimer : AppCompatActivity() {
     //    To reset timer
     fun resetTimer() {
         time_in_ms = 0L
-        updateTextUI()
+
+        edtHours.setText("")
+        edtMinutes.setText("")
+        edtSeconds.setText("")
+
         isRunning = false
         countdown_timer.cancel()
         btnStartTimer.setText("START!")
