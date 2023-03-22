@@ -1,6 +1,9 @@
 package com.banedu.thebanana
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -67,6 +70,7 @@ class studyTimer : AppCompatActivity() {
     var musicArray: ArrayList<musicClass> = ArrayList()
 
     lateinit var mediaplayer: MediaPlayer
+    lateinit var SLD: SaveLoadData
 
     //TODO: define auth & storage
     lateinit var auth: FirebaseAuth
@@ -96,6 +100,21 @@ class studyTimer : AppCompatActivity() {
         txtTotalTimeSevenDays = findViewById(R.id.txtTotalTimeSevenDays)
         btnGenerate = findViewById(R.id.btnGenerate)
 
+        musicArray = AppMediaSound().studyMusic
+        SLD = SaveLoadData()
+        SLD.LoadData(this)
+
+        val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, AppMediaSound().btnClickSFX)
+        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
+                    val volume = intent.getIntExtra("volume", 50)
+                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
+                }
+            }
+        }, IntentFilter("com.banedu.thebanana.VOLUME_CHANGED"))
+
         auth = Firebase.auth
         DB_Reference = DB_Connection().connect()
 
@@ -114,31 +133,38 @@ class studyTimer : AppCompatActivity() {
 
         //region set music
 
-        musicArray.add(musicClass("Relax.mp3", R.raw.relax_music, R.drawable.flowericon))
-        musicArray.add(musicClass("Banana.mp3", R.raw.bananasong, R.drawable.banana))
-        musicArray.add(musicClass("MinionOpera.mp3", R.raw.minionopera, R.drawable.minion))
-
         txtMusicTitle.setText(musicArray[0].title)
         mediaplayer = MediaPlayer.create(this, musicArray[0].music)
+        mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
         imgMusicCover.setImageResource(musicArray[0].image)
         seekbar.progress = 0
         seekbar.max = mediaplayer.duration
 
+        val intentFilter = IntentFilter("com.banedu.thebanana.MUSIC_CHANGED")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.action == "com.banedu.thebanana.MUSIC_CHANGED") {
+                    val music = intent.getIntExtra("music", 50)
+                    mediaplayer.setVolume(music / 100f, music / 100f)
+                }
+            }
+        }, intentFilter)
+
         //endregion
 
         btnBackHomeFromST.setOnClickListener {
+            clickbuttonSFX.start()
+
             val intent = Intent(this, index::class.java)
             startActivity(intent)
         }
 
         //region Time Button
-//        TODO: Set Timer
-//        TODO: Receive time length
-//        TODO: SET TEXT FOR COUNTDOWN
-
 
 //      TODO: ONCE START BUTTON IS CLICKED, TIMER STARTS
         btnStartTimer.setOnClickListener {
+            clickbuttonSFX.start()
+
             if (isRunning) {
                 //TODO: IF USER GAVE UP, TIMER RESET
                 resetTimer()
@@ -220,18 +246,22 @@ class studyTimer : AppCompatActivity() {
 
         //TODO: CANNOT AUTOPLAY, SOLVE
         mediaplayer.setOnCompletionListener {
+            clickbuttonSFX.start()
             playnextmusic()
         }
 
         btnPlayMusic.setOnClickListener {
+            clickbuttonSFX.start()
             playcurrentmusic()
         }
 
         btnPreMusic.setOnClickListener {
+            clickbuttonSFX.start()
             playpreviousmusic()
         }
 
         btnNextMusic.setOnClickListener {
+            clickbuttonSFX.start()
             playnextmusic()
         }
 
@@ -263,6 +293,7 @@ class studyTimer : AppCompatActivity() {
 //      TODO: Total Today & Total Accumulated
         //region Stats
         btnGenerate.setOnClickListener {
+            clickbuttonSFX.start()
 
             DB_Reference.child("Study Time Record").child(uid).child(current.toString()).child("study_time_length").get().addOnSuccessListener {
                 if(it.value != null){
@@ -322,7 +353,7 @@ class studyTimer : AppCompatActivity() {
         }
 
         if(_totalseconds != 0){
-            if ((_totalseconds > 120) and (_totalseconds < 30)) {
+            if ((_totalseconds > 2 * 60 * 60) or (_totalseconds < 30 * 60)) {
                 errorMsg = "Maximum 120 Minutes. Minimum 30 Minutes."
                 return 1
             }
@@ -402,6 +433,7 @@ class studyTimer : AppCompatActivity() {
             currentMusic++
             txtMusicTitle.setText(musicArray[currentMusic].title)
             mediaplayer = MediaPlayer.create(this, musicArray[currentMusic].music)
+            mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
             imgMusicCover.setImageResource(musicArray[currentMusic].image)
 
             mediaplayer.setOnCompletionListener {
@@ -427,6 +459,7 @@ class studyTimer : AppCompatActivity() {
 
             txtMusicTitle.setText(musicArray[currentMusic].title)
             mediaplayer = MediaPlayer.create(this, musicArray[currentMusic].music)
+            mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
             imgMusicCover.setImageResource(musicArray[currentMusic].image)
 
             mediaplayer.setOnCompletionListener {
@@ -441,7 +474,9 @@ class studyTimer : AppCompatActivity() {
             Toast.makeText(this, "Can't play previous music", Toast.LENGTH_LONG).show()
         }
     }
+
+    //disable back button from killing app
+    override fun onBackPressed() {
+        return
+    }
 }
-
-
-data class musicClass(var title: String, var music: Int, var image: Int)

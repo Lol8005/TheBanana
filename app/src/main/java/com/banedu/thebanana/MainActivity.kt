@@ -1,6 +1,9 @@
 package com.banedu.thebanana
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.ImageButton
@@ -12,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_setting: ImageButton
     lateinit var btn_profile: ImageButton
     lateinit var btn_exit: ImageButton
+
+    lateinit var SLD: SaveLoadData
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -34,7 +39,21 @@ class MainActivity : AppCompatActivity() {
         btn_profile = findViewById(R.id.btn_profile)
         btn_exit = findViewById(R.id.btn_exit)
 
-        val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, R.raw.clickbuttonsfx)
+        SLD = SaveLoadData()
+        SLD.LoadData(this)
+
+        val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, AppMediaSound().btnClickSFX)
+        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
+
+        val intentFilter = IntentFilter("com.banedu.thebanana.VOLUME_CHANGED")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
+                    val volume = intent.getIntExtra("volume", 50)
+                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
+                }
+            }
+        }, intentFilter)
 
         //endregion
 

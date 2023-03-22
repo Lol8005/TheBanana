@@ -1,20 +1,16 @@
 package com.banedu.thebanana
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.IntentFilter
+import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import layout.CourseRvModal
 
 class index : AppCompatActivity() {
 
@@ -52,6 +48,22 @@ class index : AppCompatActivity() {
         buttonRank=findViewById(R.id.buttonRank)
         buttonFlashCards=findViewById(R.id.buttonFlashCards)
         buttonStudyTimer=findViewById(R.id.buttonStudyTimer)
+
+        val SLD = SaveLoadData()
+        SLD.LoadData(this)
+
+        val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, AppMediaSound().btnClickSFX)
+        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
+
+        val intentFilter = IntentFilter("com.banedu.thebanana.VOLUME_CHANGED")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
+                    val volume = intent.getIntExtra("volume", 50)
+                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
+                }
+            }
+        }, intentFilter)
 
         //region Hide toolbar
 
@@ -94,6 +106,8 @@ class index : AppCompatActivity() {
 
         //Shortcuts To Settings
         imgBtnSettings.setOnClickListener {
+            clickbuttonSFX.start()
+
             val intent = Intent(this, Setting::class.java)
             startActivity(intent)
         }
@@ -119,6 +133,9 @@ class index : AppCompatActivity() {
         //Shortcuts To Study Timer Page
         buttonStudyTimer.setOnClickListener {
             val intent = Intent(this,studyTimer::class.java)
+
+            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP
+
             startActivity(intent)
         }
 

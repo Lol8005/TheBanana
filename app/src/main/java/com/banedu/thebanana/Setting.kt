@@ -1,5 +1,9 @@
 package com.banedu.thebanana
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -39,7 +43,21 @@ class Setting : AppCompatActivity() {
         btn_music = findViewById(R.id.btn_music)
         seekBar_music = findViewById(R.id.seekBar_music)
 
+        SLD = SaveLoadData()
+        SLD.LoadData(this)
+
         val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, R.raw.clickbuttonsfx)
+        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
+
+        val intentFilter = IntentFilter("com.banedu.thebanana.VOLUME_CHANGED")
+        registerReceiver(object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
+                    val volume = intent.getIntExtra("volume", 50)
+                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
+                }
+            }
+        }, intentFilter)
 
         //endregion
 
@@ -72,6 +90,13 @@ class Setting : AppCompatActivity() {
         seekBar_volume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 updateViewsAfterLoadData()
+
+                //Pass value to all activity, and change the music vol in realtime
+                val intent = Intent().apply {
+                    action = "com.banedu.thebanana.VOLUME_CHANGED"
+                    putExtra("volume", progress)
+                }
+                sendBroadcast(intent)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -102,6 +127,13 @@ class Setting : AppCompatActivity() {
         seekBar_music.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 updateViewsAfterLoadData()
+
+                //Pass value to all activity, and change the music vol in realtime
+                val intent = Intent().apply {
+                    action = "com.banedu.thebanana.MUSIC_CHANGED"
+                    putExtra("music", progress)
+                }
+                sendBroadcast(intent)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -136,5 +168,9 @@ class Setting : AppCompatActivity() {
         }else{
             btn_music.setImageResource(R.drawable.musicicon)
         }
+    }
+
+    fun updateMusicVolInRealTime(){
+
     }
 }
