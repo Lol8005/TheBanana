@@ -51,7 +51,7 @@ class LoginAccountFirebase : AppCompatActivity() {
         //region Initialize Variable
 
         auth = Firebase.auth
-        DB_Reference = DB_Connection().connect()
+        DB_Reference = DB_Connection().connectRealDB()
 
         edt_email = findViewById(R.id.edtEmailL)
         edt_password = findViewById(R.id.edtPasswordL)

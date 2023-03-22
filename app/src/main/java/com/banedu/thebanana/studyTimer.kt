@@ -7,15 +7,11 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.*
-import androidx.core.text.isDigitsOnly
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.os.Handler
 import android.util.Log
-import com.banedu.thebanana.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -23,17 +19,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Runnable
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.emitter.Emitter
-import nl.dionsegijn.konfetti.core.models.Size
 import nl.dionsegijn.konfetti.xml.KonfettiView
 import java.time.LocalDate
 import java.time.Period
-import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -116,7 +109,7 @@ class studyTimer : AppCompatActivity() {
         }, IntentFilter("com.banedu.thebanana.VOLUME_CHANGED"))
 
         auth = Firebase.auth
-        DB_Reference = DB_Connection().connect()
+        DB_Reference = DB_Connection().connectRealDB()
 
         //TODO: Get uid from auth
         val uid = auth.currentUser?.uid.toString()

@@ -43,7 +43,7 @@ class RegisterAccountFirebase : AppCompatActivity() {
         //region Initialize Variable
 
         auth = Firebase.auth
-        DB_Reference = DB_Connection().connect()
+        DB_Reference = DB_Connection().connectRealDB()
 
         edt_username = findViewById(R.id.edtUsername)
         edt_email = findViewById(R.id.edtEmailL)
@@ -88,7 +88,22 @@ class RegisterAccountFirebase : AppCompatActivity() {
 
             if(username != "" && email != "" && password != ""){
                 if(checkIfTextEnterFulfillRequirement()){
-                    performSignUp()
+                    resources.openRawResource(R.raw.badwords).bufferedReader().use {
+                        var illegalWord = false
+
+                        for(word in it.readText().split("\n")){
+                            if(username.contains(word.trim())){
+                                illegalWord = true
+                                break
+                            }
+                        }
+
+                        if(illegalWord){
+                            Toast.makeText(this, "Please enter appropriate username!!", Toast.LENGTH_LONG).show()
+                        }else{
+                            performSignUp()
+                        }
+                    }
                 }else{
                     Toast.makeText(this, "Input not fulfill requirement!!", Toast.LENGTH_LONG).show()
                 }

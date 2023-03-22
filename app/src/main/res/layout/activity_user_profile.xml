@@ -5,35 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#79FFF4"
-    tools:context=".UserProfile">
+    tools:context=".UserProfile"
+    android:clickable="true"
+    android:focusableInTouchMode="true" >
 
-    <ImageButton
-        android:id="@+id/btn_return"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:background="#00FFFFFF"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/returnicon"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:scaleType="fitCenter"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:adjustViewBounds="true"/>
+        android:clickable="true"
+        android:focusableInTouchMode="true" >
+
+        <ImageButton
+            android:id="@+id/btn_profile_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/circularbananaframe"
+            android:backgroundTint="#F8F8F8"
+            android:contentDescription="Profile Picture"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bananathemebackground" />
+
+        <EditText
+            android:id="@+id/edtUName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_profile_picture"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btn_return"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:adjustViewBounds="true"
+            android:background="#00FFFFFF"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/returnicon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/txtUName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="30sp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/btn_logout"
