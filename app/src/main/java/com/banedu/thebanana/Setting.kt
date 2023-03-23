@@ -94,7 +94,7 @@ class Setting : AppCompatActivity() {
                 //Pass value to all activity, and change the music vol in realtime
                 val intent = Intent().apply {
                     action = "com.banedu.thebanana.VOLUME_CHANGED"
-                    putExtra("volume", progress)
+                    putExtra("volume", progress / 100f)
                 }
                 sendBroadcast(intent)
             }
