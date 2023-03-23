@@ -98,12 +98,12 @@ class studyTimer : AppCompatActivity() {
         SLD.LoadData(this)
 
         val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, AppMediaSound().btnClickSFX)
-        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
+        clickbuttonSFX.setVolume(SLD.volume, SLD.volume)
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
-                    val volume = intent.getIntExtra("volume", 50)
-                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
+                    val volume = intent.getFloatExtra("volume", 1f)
+                    clickbuttonSFX.setVolume(volume, volume)
                 }
             }
         }, IntentFilter("com.banedu.thebanana.VOLUME_CHANGED"))
@@ -137,8 +137,8 @@ class studyTimer : AppCompatActivity() {
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent?.action == "com.banedu.thebanana.MUSIC_CHANGED") {
-                    val music = intent.getIntExtra("music", 50)
-                    mediaplayer.setVolume(music / 100f, music / 100f)
+                    val music = intent.getFloatExtra("music", 1f)
+                    mediaplayer.setVolume(music, music)
                 }
             }
         }, intentFilter)
