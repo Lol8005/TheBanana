@@ -11,6 +11,7 @@
         <TextView
             android:id="@+id/idTVIndex"
             android:layout_gravity="center"
+            android:layout_width="0dp"
             android:padding="10dp"
             android:layout_weight="0.5"
             android:layout_column="1" />
@@ -20,6 +21,7 @@
         <TextView
             android:id="@+id/idTVSubject"
             android:layout_gravity="center"
+            android:layout_width="0dp"
             android:padding="10dp"
             android:layout_weight="1"
             android:layout_column="1" />
@@ -27,6 +29,7 @@
         <TextView
             android:id="@+id/idTVQdate"
             android:layout_gravity="center"
+            android:layout_width="0dp"
             android:padding="10dp"
             android:layout_weight="1"
             android:layout_column="1" />
@@ -34,6 +37,7 @@
         <TextView
             android:id="@+id/idTVBananaEarned"
             android:layout_gravity="center"
+            android:layout_width="0dp"
             android:padding="10dp"
             android:layout_weight="1"
             android:layout_column="1" />
