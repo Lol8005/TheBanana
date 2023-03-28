@@ -51,8 +51,6 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
         imgVwThird = findViewById(R.id.imgVwThird)
         btnBackHomeFromRank = findViewById(R.id.btnBackHomeFromRank)
 
-        var UserID: ArrayList<String> = ArrayList()
-
         btnBackHomeFromRank.setOnClickListener {
             finish()
         }
@@ -81,14 +79,14 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
                         fileRetriever.loadImage(this@rank)
                     }
 
-                    txtFplace.setText("${UserRanking[0].username} (${UserRanking[0].banana})")
-                    txtSplace.setText("${UserRanking[1].username} (${UserRanking[1].banana})")
-                    txtTplace.setText("${UserRanking[2].username} (${UserRanking[2].banana})")
+                    txtFplace.text = "${UserRanking[0].username} (${UserRanking[0].banana})"
+                    txtSplace.text = "${UserRanking[1].username} (${UserRanking[1].banana})"
+                    txtTplace.text = "${UserRanking[2].username} (${UserRanking[2].banana})"
 
 
                     for(userIndex in 0..AllUserRanking.size){
                         if(uid == AllUserRanking[userIndex].id){
-                            txtYrRank.setText("${userIndex + 1} (${AllUserRanking[userIndex].banana})")
+                            txtYrRank.text = "${userIndex + 1} (${AllUserRanking[userIndex].banana})"
 
                             break
                         }
@@ -126,9 +124,7 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
                     // Handle any cleanup required when the image is cleared
                 }
             })
-
     }
-
 }
 
 data class UserRankClass(var id: String, var username: String, var banana: Int)
