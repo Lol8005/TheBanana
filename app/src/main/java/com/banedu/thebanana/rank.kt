@@ -1,5 +1,6 @@
 package com.banedu.thebanana
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +41,7 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
 
 //        auth=Firebase.auth
 //        val uid =auth.currentUser?.uid.toString()
-        var RefRank = Firebase.database.getReference("Users")
+        val RefRank = Firebase.database.getReference("Users")
 
         txtFplace = findViewById(R.id.txtFplace)
         txtSplace = findViewById(R.id.txtSplace)
@@ -57,20 +58,18 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
 
         //TODO: FIND RANK
         RefRank.addValueEventListener(object : ValueEventListener {
-
             override fun onDataChange(snapshot: DataSnapshot) {
-
                 if(snapshot.exists()){
                     for (indexID in snapshot.children){
-                        var thisUserBanana = indexID.child("Total_Banana_Earned").value.toString().toInt()
-                        var thisUsername = indexID.child("username").value.toString()
+                        val thisUserBanana = indexID.child("Total_Banana_Earned").value.toString().toInt()
+                        val thisUsername = indexID.child("username").value.toString()
 
                         UserRanking.add(UserRankClass(indexID.key.toString(), thisUsername, thisUserBanana))
                         Log.d("Banana", UserRanking.toString())
                     }
 
                     // Sort and get top 3
-                    var AllUserRanking = UserRanking.sortedByDescending { it.banana }
+                    val AllUserRanking = UserRanking.sortedByDescending { it.banana }
                     UserRanking = AllUserRanking.take(3) as ArrayList<UserRankClass>
                     Log.d("TAG", UserRanking.toString())
 
@@ -106,8 +105,7 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
         Glide.with(this)
             .load(uri)
             .into(object : CustomTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?
-                ) {
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                     // Set the Drawable to an ImageView or any other view that accepts a Drawable
                     val fileName = uri.path?.split("/")?.last().toString()
 
