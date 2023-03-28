@@ -140,21 +140,23 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         }
 
     }
-    override fun onImageDownloaded(uri: Uri) {
+    override fun onImageDownloaded(uri: Uri?) {
         // Do something with the downloaded URI
-        Log.d("URI", uri.toString())
+        if(uri != null){
+            Log.d("URI", uri.toString())
 
-        Glide.with(this)
-            .load(uri)
-            .into(object : CustomTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                    // Set the Drawable to an ImageView or any other view that accepts a Drawable
-                    imgBtnPfp.setImageDrawable(resource)
-                }
+            Glide.with(this)
+                .load(uri)
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        // Set the Drawable to an ImageView or any other view that accepts a Drawable
+                        imgBtnPfp.setImageDrawable(resource)
+                    }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    // Handle any cleanup required when the image is cleared
-                }
-            })
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // Handle any cleanup required when the image is cleared
+                    }
+                })
+        }
     }
 }

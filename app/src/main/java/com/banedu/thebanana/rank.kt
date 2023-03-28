@@ -59,6 +59,7 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
         //TODO: FIND RANK
         RefRank.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                UserRanking.clear()
                 if(snapshot.exists()){
                     for (indexID in snapshot.children){
                         val thisUserBanana = indexID.child("Total_Banana_Earned").value.toString().toInt()
@@ -90,6 +91,10 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
                             break
                         }
                     }
+
+                    imgVwFirst.setImageResource(R.drawable.banana)
+                    imgVwSecond.setImageResource(R.drawable.banana)
+                    imgVwThird.setImageResource(R.drawable.banana)
                 }
             }
 
@@ -99,29 +104,30 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
         })
     }
 
-    override fun onImageDownloaded(uri: Uri) {
+    override fun onImageDownloaded(uri: Uri?) {
         // Do something with the downloaded URI
-        Log.d("URI", uri.toString())
-        Glide.with(this)
-            .load(uri)
-            .into(object : CustomTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                    // Set the Drawable to an ImageView or any other view that accepts a Drawable
-                    val fileName = uri.path?.split("/")?.last().toString()
+        if(uri != null){
+            Glide.with(applicationContext)
+                .load(uri)
+                .into(object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        // Set the Drawable to an ImageView or any other view that accepts a Drawable
+                        val fileName = uri.path?.split("/")?.last().toString()
 
-                    if(fileName == UserRanking[0].id){
-                        imgVwFirst.setImageDrawable(resource)
-                    }else if(fileName == UserRanking[1].id){
-                        imgVwSecond.setImageDrawable(resource)
-                    }else{
-                        imgVwThird.setImageDrawable(resource)
+                        if(fileName == UserRanking[0].id){
+                            imgVwFirst.setImageDrawable(resource)
+                        }else if(fileName == UserRanking[1].id){
+                            imgVwSecond.setImageDrawable(resource)
+                        }else{
+                            imgVwThird.setImageDrawable(resource)
+                        }
                     }
-                }
 
-                override fun onLoadCleared(placeholder: Drawable?) {
-                    // Handle any cleanup required when the image is cleared
-                }
-            })
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        // Handle any cleanup required when the image is cleared
+                    }
+                })
+        }
     }
 }
 
