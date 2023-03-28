@@ -7,13 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import layout.CourseRVAdapter
+import layout.CourseRvModal
 
 class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     FileRetriever.ImageDownloadListener {
@@ -27,10 +35,17 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     lateinit var btn_return: ImageButton
     lateinit var btn_profile_picture: ImageButton
 
+    //TODO:TEST YO
+    lateinit var userRecordRV: RecyclerView
+    lateinit var userRecordRVAdapter: UserRecordRvAdapter
+    lateinit var userRecord: ArrayList<UserRecordFormat>
+
     private lateinit var filePicker: FilePicker
     private var auth: FirebaseAuth=Firebase.auth
     val uid =auth.currentUser?.uid.toString()
     private val fileRetriever = FileRetriever(uid)
+    var database=Firebase.database
+    var myRef=database.getReference().child("Quiz Records").child(uid)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,6 +151,38 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
         }
 
         //endregion
+
+        //TODO:TEST TEST WKWKWKKWWK
+        userRecordRV = findViewById(R.id.idRVRecord)
+        userRecord = ArrayList()
+
+        userRecordRV.layoutManager= LinearLayoutManager(this)
+        userRecordRVAdapter = UserRecordRvAdapter(userRecord)
+        userRecordRV.adapter = userRecordRVAdapter
+        //TEST SUBJECT
+//        myRef.child("2").child("Qdate").setValue("2023-03-27")
+//        myRef.child("2").child("Subject").setValue("Science")
+//        myRef.child("2").child("Banana_Earned").setValue(9)
+        myRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var x=1
+                if(snapshot.exists()) {
+                    for(y in snapshot.children) {
+                        var value0 = x
+                        var value1 = snapshot.child(x.toString()).child("Qdate").getValue().toString()
+                        var value2 = snapshot.child(x.toString()).child("Subject").getValue().toString()
+                        var value3 = snapshot.child(x.toString()).child("Banana_Earned").getValue().toString().toInt()
+                        x++
+                        userRecord.add(UserRecordFormat(value0, value2,value1,value3))
+                    }
+                    userRecordRVAdapter.notifyDataSetChanged()
+
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("TAG", "Failed to read value.", error.toException())
+            }
+        })
     }
 
     override fun onImageUploaded(uri: Uri) {
@@ -158,21 +205,19 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
 
     override fun onImageDownloaded(uri: Uri?) {
         // Do something with the downloaded URI
-        if(uri != null){
-            Log.d("URI", uri.toString())
+        Log.d("URI", uri.toString())
 
-            Glide.with(this)
-                .load(uri)
-                .into(object : CustomTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                        // Set the Drawable to an ImageView or any other view that accepts a Drawable
-                        btn_profile_picture.setImageDrawable(resource)
-                    }
+        Glide.with(this)
+            .load(uri)
+            .into(object : CustomTarget<Drawable>() {
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    // Set the Drawable to an ImageView or any other view that accepts a Drawable
+                    btn_profile_picture.setImageDrawable(resource)
+                }
 
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                        // Handle any cleanup required when the image is cleared
-                    }
-                })
-        }
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    // Handle any cleanup required when the image is cleared
+                }
+            })
     }
 }

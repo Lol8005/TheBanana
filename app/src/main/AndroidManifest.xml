@@ -17,6 +17,15 @@
         android:theme="@style/thebanana"
         tools:targetApi="31">
         <activity
+            android:name=".subjectselection"
+            android:exported="false" />
+        <activity
+            android:name=".quiz"
+            android:exported="false" />
+        <activity
+            android:name=".FlashcardClass"
+            android:exported="false" />
+        <activity
             android:name=".index"
             android:exported="false" />
         <activity

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1,2,3,4">
+
+    <TableRow>
+        <!--on below line we are creating
+            a simple image view-->
+        <TextView
+            android:id="@+id/idTVIndex"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_weight="0.5"
+            android:layout_column="1" />
+
+        <!--on below line we are creating
+            a simple text view-->
+        <TextView
+            android:id="@+id/idTVSubject"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_column="1" />
+
+        <TextView
+            android:id="@+id/idTVQdate"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_column="1" />
+
+        <TextView
+            android:id="@+id/idTVBananaEarned"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:layout_column="1" />
+
+    </TableRow>
+
+</TableLayout>

@@ -47,10 +47,6 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         //TODO:Render Pfp uri
         fileRetriever.loadImage(this)
 
-
-
-
-
         imgBtnPfp=findViewById(R.id.imgBtnPfp)
         txtUserName=findViewById(R.id.txtUserName)
         txtBananaCount=findViewById(R.id.txtBananaCount)
@@ -113,10 +109,10 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         }
 
         //Shortcuts To Quiz Page
-//        buttonQuiz.setOnClickListener {
-//            val intent = Intent(this,quiz::class.java)
-//            startActivity(intent)
-//        }
+        buttonQuiz.setOnClickListener {
+            val intent = Intent(this, subjectselection::class.java)
+            startActivity(intent)
+        }
 
         //Shortcuts To Ranking Page
         buttonRank.setOnClickListener {
@@ -125,10 +121,10 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         }
 
         //Shortcuts To Flashcards Page
-//        buttonFlashCards.setOnClickListener {
-//            val intent = Intent(this,flashcards::class.java)
-//            startActivity(intent)
-//        }
+        buttonFlashCards.setOnClickListener {
+            val intent = Intent(this, FlashcardClass::class.java)
+            startActivity(intent)
+        }
 
         //Shortcuts To Study Timer Page
         buttonStudyTimer.setOnClickListener {
