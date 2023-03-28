@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Runnable
 import nl.dionsegijn.konfetti.core.Party
@@ -98,12 +99,12 @@ class studyTimer : AppCompatActivity() {
         SLD.LoadData(this)
 
         val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, AppMediaSound().btnClickSFX)
-        clickbuttonSFX.setVolume(SLD.volume, SLD.volume)
+        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
-                    val volume = intent.getFloatExtra("volume", 1f)
-                    clickbuttonSFX.setVolume(volume, volume)
+                    val volume = intent.getIntExtra("volume", 50)
+                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
                 }
             }
         }, IntentFilter("com.banedu.thebanana.VOLUME_CHANGED"))
@@ -125,20 +126,20 @@ class studyTimer : AppCompatActivity() {
         //endregion
 
         //region set music
-
+         //Define first music track
         txtMusicTitle.setText(musicArray[0].title)
         mediaplayer = MediaPlayer.create(this, musicArray[0].music)
         mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
         imgMusicCover.setImageResource(musicArray[0].image)
         seekbar.progress = 0
         seekbar.max = mediaplayer.duration
-
+         //modify volume
         val intentFilter = IntentFilter("com.banedu.thebanana.MUSIC_CHANGED")
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent?.action == "com.banedu.thebanana.MUSIC_CHANGED") {
-                    val music = intent.getFloatExtra("music", 1f)
-                    mediaplayer.setVolume(music, music)
+                    val music = intent.getIntExtra("music", 50)
+                    mediaplayer.setVolume(music / 100f, music / 100f)
                 }
             }
         }, intentFilter)
@@ -147,7 +148,6 @@ class studyTimer : AppCompatActivity() {
 
         btnBackHomeFromST.setOnClickListener {
             clickbuttonSFX.start()
-
             val intent = Intent(this, index::class.java)
             startActivity(intent)
         }
@@ -162,7 +162,7 @@ class studyTimer : AppCompatActivity() {
                 //TODO: IF USER GAVE UP, TIMER RESET
                 resetTimer()
                 Toast.makeText(this, "Sorry! Try harder next time.", Toast.LENGTH_LONG).show()
-
+                //The time can be modified
                 edtHours.isFocusable = true
                 edtMinutes.isFocusable = true
                 edtSeconds.isFocusable = true
@@ -177,15 +177,13 @@ class studyTimer : AppCompatActivity() {
                 edtHours.setText(String.format("%02d", initialHour))
                 edtMinutes.setText(String.format("%02d", initialMinutes))
                 edtSeconds.setText(String.format("%02d", initialSeconds))
-
+                //The time cannot be modified
                 edtHours.isFocusable = false
                 edtMinutes.isFocusable = false
                 edtSeconds.isFocusable = false
 
                 btnStartTimer.setText("GIVE UP?")
                 time_in_ms = time * 1000L
-                startTimer(time_in_ms)
-
                 countdown_timer = object : CountDownTimer(time_in_ms, 1000) {
                     override fun onFinish() {
                         loadConfeti()
@@ -195,8 +193,7 @@ class studyTimer : AppCompatActivity() {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (add == true) {
                                     if (snapshot.exists()) {
-                                        var value2 = snapshot.child("study_time_length").value
-                                            .toString().toInt()
+                                        var value2 = snapshot.child("study_time_length").getValue().toString().toInt()
                                         total = (value2 + (time / 60))
                                         Log.d("TAG", value2.toString())
                                         Log.d("TAG", (time / 60).toString())
@@ -207,8 +204,7 @@ class studyTimer : AppCompatActivity() {
                                         total = time / 60
                                         Log.d("TAG", "Add new record" + (total).toString())
                                     }
-                                    databaseRefTimeNow.child("study_time_length")
-                                        .setValue(total.toString())
+                                    databaseRefTimeNow.child("study_time_length").setValue(total.toString())
                                 }
                                 add = false
                             }
@@ -234,10 +230,9 @@ class studyTimer : AppCompatActivity() {
         }
         //endregion
 
-//      TODO: Set Music Player(3 TRACKS)
+//      //TODO: Set Music Player(3 TRACKS)
         //region Music
 
-        //TODO: CANNOT AUTOPLAY, SOLVE
         mediaplayer.setOnCompletionListener {
             clickbuttonSFX.start()
             playnextmusic()
@@ -308,9 +303,8 @@ class studyTimer : AppCompatActivity() {
                             totalTimeStudy += it.child(current.minus(period).toString()).child("study_time_length").value.toString().toInt()
                         }
                     }
-
-                    txtTotalTimeSevenDays.setText("$totalTimeStudy minutes")
                 }
+                txtTotalTimeSevenDays.setText("$totalTimeStudy minutes")
             }
         }
 
@@ -359,14 +353,6 @@ class studyTimer : AppCompatActivity() {
         }
 
         return 0
-    }
-
-    //TODO: IF SUCCEED, ADD RECORD
-    //TODO: Add record
-    //    To start Timer
-    fun startTimer(time_in_seconds: Long) {
-
-
     }
 
     //    To reset timer

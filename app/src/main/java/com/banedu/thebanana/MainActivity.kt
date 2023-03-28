@@ -43,14 +43,14 @@ class MainActivity : AppCompatActivity() {
         SLD.LoadData(this)
 
         val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, AppMediaSound().btnClickSFX)
-        clickbuttonSFX.setVolume(SLD.volume, SLD.volume)
+        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
 
         val intentFilter = IntentFilter("com.banedu.thebanana.VOLUME_CHANGED")
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
-                    val volume = intent.getFloatExtra("volume", 1f)
-                    clickbuttonSFX.setVolume(volume, volume)
+                    val volume = intent.getIntExtra("volume", 50)
+                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
                 }
             }
         }, intentFilter)

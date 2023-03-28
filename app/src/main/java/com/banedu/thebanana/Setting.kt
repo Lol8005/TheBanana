@@ -47,14 +47,14 @@ class Setting : AppCompatActivity() {
         SLD.LoadData(this)
 
         val clickbuttonSFX: MediaPlayer = MediaPlayer.create(this, R.raw.clickbuttonsfx)
-        clickbuttonSFX.setVolume(SLD.volume, SLD.volume)
+        clickbuttonSFX.setVolume(SLD.volume.toFloat(), SLD.volume.toFloat())
 
         val intentFilter = IntentFilter("com.banedu.thebanana.VOLUME_CHANGED")
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 if (intent?.action == "com.banedu.thebanana.VOLUME_CHANGED") {
-                    val volume = intent.getFloatExtra("volume", 1f)
-                    clickbuttonSFX.setVolume(volume, volume)
+                    val volume = intent.getIntExtra("volume", 50)
+                    clickbuttonSFX.setVolume(volume / 100f, volume / 100f)
                 }
             }
         }, intentFilter)
@@ -66,8 +66,8 @@ class Setting : AppCompatActivity() {
         SLD = SaveLoadData()
         SLD.LoadData(this)
 
-        seekBar_volume.progress = (SLD.volume * 100).toInt()
-        seekBar_music.progress = (SLD.music * 100).toInt()
+        seekBar_volume.progress = SLD.volume
+        seekBar_music.progress = SLD.music
 
         updateViewsAfterLoadData()
 
@@ -80,7 +80,7 @@ class Setting : AppCompatActivity() {
                 seekBar_volume.progress = 0
             }
 
-            SLD.volume = seekBar_volume.progress / 100f
+            SLD.volume = seekBar_volume.progress
             SLD.SaveData(applicationContext)
 
             clickbuttonSFX.start()
@@ -94,7 +94,7 @@ class Setting : AppCompatActivity() {
                 //Pass value to all activity, and change the music vol in realtime
                 val intent = Intent().apply {
                     action = "com.banedu.thebanana.VOLUME_CHANGED"
-                    putExtra("volume", progress / 100f)
+                    putExtra("volume", progress)
                 }
                 sendBroadcast(intent)
             }
@@ -104,7 +104,7 @@ class Setting : AppCompatActivity() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                SLD.volume = seekBar_volume.progress / 100f
+                SLD.volume = seekBar_volume.progress
 
                 SLD.SaveData(applicationContext)
             }
@@ -117,7 +117,7 @@ class Setting : AppCompatActivity() {
                 seekBar_music.progress = 0
             }
 
-            SLD.music = seekBar_music.progress / 100f
+            SLD.music = seekBar_music.progress
             SLD.SaveData(applicationContext)
 
             clickbuttonSFX.start()
@@ -131,7 +131,7 @@ class Setting : AppCompatActivity() {
                 //Pass value to all activity, and change the music vol in realtime
                 val intent = Intent().apply {
                     action = "com.banedu.thebanana.MUSIC_CHANGED"
-                    putExtra("music", progress / 100f)
+                    putExtra("music", progress)
                 }
                 sendBroadcast(intent)
             }
@@ -141,7 +141,7 @@ class Setting : AppCompatActivity() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                SLD.music = seekBar_music.progress / 100f
+                SLD.music = seekBar_music.progress
 
                 SLD.SaveData(applicationContext)
             }
@@ -168,5 +168,9 @@ class Setting : AppCompatActivity() {
         }else{
             btn_music.setImageResource(R.drawable.musicicon)
         }
+    }
+
+    fun updateMusicVolInRealTime(){
+
     }
 }

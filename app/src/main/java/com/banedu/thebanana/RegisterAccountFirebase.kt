@@ -132,6 +132,8 @@ class RegisterAccountFirebase : AppCompatActivity() {
 
                 val id = auth.currentUser?.uid.toString()
                 DB_Reference.child("Users").child(id).child("username").setValue(username)
+                //TODO: Added Total_Banana_Earned
+                DB_Reference.child("Users").child(id).child("Total_Banana_Earned").setValue(0)
 
                 SLD.username = username
                 SLD.email = email

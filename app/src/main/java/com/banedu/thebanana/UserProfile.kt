@@ -18,7 +18,6 @@ import com.google.firebase.ktx.Firebase
 class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     FileRetriever.ImageDownloadListener {
 
-    private lateinit var auth: FirebaseAuth
     private lateinit var DB_Reference: DatabaseReference
 
     lateinit var SLD: SaveLoadData
@@ -29,7 +28,9 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     lateinit var btn_profile_picture: ImageButton
 
     private lateinit var filePicker: FilePicker
-    private val fileRetriever = FileRetriever()
+    private var auth: FirebaseAuth=Firebase.auth
+    val uid =auth.currentUser?.uid.toString()
+    private val fileRetriever = FileRetriever(uid)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +55,6 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
 
         //region Initialize Variable
 
-        auth = Firebase.auth
         DB_Reference = DB_Connection().connectRealDB()
 
         edtUName = findViewById(R.id.edtUName)
@@ -67,12 +67,11 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
         //region Button On Click Listener
 
         if (SLD.username == "") {
-            val id = auth.currentUser?.uid.toString()
-            DB_Reference.child("Users").child(id).child("username").get().addOnSuccessListener {
+            DB_Reference.child("Users").child(uid).child("username").get().addOnSuccessListener {
                 SLD.username = it.value.toString()
-                SaveLoadData()
 
                 edtUName.setText("${SLD.username}")
+                SLD.SaveData(this)
             }
         } else {
             edtUName.setText("${SLD.username}")

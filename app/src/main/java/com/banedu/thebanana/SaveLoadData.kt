@@ -11,8 +11,8 @@ class SaveLoadData {
     var email: String = ""
     var password: String = ""
 
-    var volume: Float = 0f
-    var music: Float = 0f
+    var volume: Int = 0
+    var music: Int = 0
 
     fun LoadData(activity: Context){
         var sharedPreferences:SharedPreferences = activity.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
@@ -21,8 +21,8 @@ class SaveLoadData {
         email = sharedPreferences.getString("email", "").toString()
         password = sharedPreferences.getString("password", "").toString()
 
-        volume = sharedPreferences.getFloat("volume", 1f)
-        music = sharedPreferences.getFloat("music", 1f)
+        volume = sharedPreferences.getInt("volume", 100)
+        music = sharedPreferences.getInt("music", 100)
     }
 
     fun SaveData(activity: Context){
@@ -33,8 +33,8 @@ class SaveLoadData {
         editor.putString("email", email)
         editor.putString("password", password)
 
-        editor.putFloat("volume", volume)
-        editor.putFloat("music", music)
+        editor.putInt("volume", volume)
+        editor.putInt("music", music)
 
         editor.apply()
     }
