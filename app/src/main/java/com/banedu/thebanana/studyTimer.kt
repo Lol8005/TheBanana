@@ -127,7 +127,7 @@ class studyTimer : AppCompatActivity() {
 
         //region set music
          //Define first music track
-        txtMusicTitle.setText(musicArray[0].title)
+        txtMusicTitle.text = musicArray[0].title
         mediaplayer = MediaPlayer.create(this, musicArray[0].music)
         mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
         imgMusicCover.setImageResource(musicArray[0].image)
@@ -182,7 +182,7 @@ class studyTimer : AppCompatActivity() {
                 edtMinutes.isFocusable = false
                 edtSeconds.isFocusable = false
 
-                btnStartTimer.setText("GIVE UP?")
+                btnStartTimer.text = "GIVE UP?"
                 time_in_ms = time * 1000L
                 countdown_timer = object : CountDownTimer(time_in_ms, 1000) {
                     override fun onFinish() {
@@ -193,7 +193,7 @@ class studyTimer : AppCompatActivity() {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (add == true) {
                                     if (snapshot.exists()) {
-                                        var value2 = snapshot.child("study_time_length").getValue().toString().toInt()
+                                        var value2 = snapshot.child("study_time_length").value.toString().toInt()
                                         total = (value2 + (time / 60))
                                         Log.d("TAG", value2.toString())
                                         Log.d("TAG", (time / 60).toString())
@@ -285,10 +285,10 @@ class studyTimer : AppCompatActivity() {
 
             DB_Reference.child("Study Time Record").child(uid).child(current.toString()).child("study_time_length").get().addOnSuccessListener {
                 if(it.value != null){
-                    txtTotalTimeToday.setText("${it.value.toString()} minutes")
+                    txtTotalTimeToday.text = "${it.value.toString()} minutes"
                 }
                 else{
-                    txtTotalTimeToday.setText("0 minutes")
+                    txtTotalTimeToday.text = "0 minutes"
                 }
             }
 
@@ -304,7 +304,7 @@ class studyTimer : AppCompatActivity() {
                         }
                     }
                 }
-                txtTotalTimeSevenDays.setText("$totalTimeStudy minutes")
+                txtTotalTimeSevenDays.text = "$totalTimeStudy minutes"
             }
         }
 
@@ -365,7 +365,7 @@ class studyTimer : AppCompatActivity() {
 
         isRunning = false
         countdown_timer.cancel()
-        btnStartTimer.setText("START!")
+        btnStartTimer.text = "START!"
     }
 
     //    To update the countdown number
@@ -410,7 +410,7 @@ class studyTimer : AppCompatActivity() {
             mediaplayer.release()
 
             currentMusic++
-            txtMusicTitle.setText(musicArray[currentMusic].title)
+            txtMusicTitle.text = musicArray[currentMusic].title
             mediaplayer = MediaPlayer.create(this, musicArray[currentMusic].music)
             mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
             imgMusicCover.setImageResource(musicArray[currentMusic].image)
@@ -436,7 +436,7 @@ class studyTimer : AppCompatActivity() {
             mediaplayer.stop()
             mediaplayer.release()
 
-            txtMusicTitle.setText(musicArray[currentMusic].title)
+            txtMusicTitle.text = musicArray[currentMusic].title
             mediaplayer = MediaPlayer.create(this, musicArray[currentMusic].music)
             mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
             imgMusicCover.setImageResource(musicArray[currentMusic].image)

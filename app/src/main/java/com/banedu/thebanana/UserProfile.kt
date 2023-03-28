@@ -45,7 +45,7 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     val uid =auth.currentUser?.uid.toString()
     private val fileRetriever = FileRetriever(uid)
     var database=Firebase.database
-    var myRef=database.getReference().child("Quiz Records").child(uid)
+    var myRef=database.reference.child("Quiz Records").child(uid)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -169,9 +169,9 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
                 if(snapshot.exists()) {
                     for(y in snapshot.children) {
                         var value0 = x
-                        var value1 = snapshot.child(x.toString()).child("Qdate").getValue().toString()
-                        var value2 = snapshot.child(x.toString()).child("Subject").getValue().toString()
-                        var value3 = snapshot.child(x.toString()).child("Banana_Earned").getValue().toString().toInt()
+                        var value1 = snapshot.child(x.toString()).child("Qdate").value.toString()
+                        var value2 = snapshot.child(x.toString()).child("Subject").value.toString()
+                        var value3 = snapshot.child(x.toString()).child("Banana_Earned").value.toString().toInt()
                         x++
                         userRecord.add(UserRecordFormat(value0, value2,value1,value3))
                     }

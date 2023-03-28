@@ -85,13 +85,13 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         RenderHomePage.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()) {
-                    var value1 = snapshot.child("username").getValue().toString()
-                    var value2 = snapshot.child("Total_Banana_Earned").getValue().toString()
+                    var value1 = snapshot.child("username").value.toString()
+                    var value2 = snapshot.child("Total_Banana_Earned").value.toString()
 //                    To check got receive the data or not -> check log cat
                     Log.d("Retrieve data", value1)
                     Log.d("Retrieve data", value2)
-                    txtBananaCount.setText(value2)
-                    txtUserName.setText(value1)
+                    txtBananaCount.text = value2
+                    txtUserName.text = value1
                 }
             }
             override fun onCancelled(error: DatabaseError) {

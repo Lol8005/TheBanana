@@ -151,7 +151,7 @@ class quiz : AppCompatActivity() {
         Log.d("userAns", selectedAnswer)
 
         if (selectedAnswer == correctAnswer) {
-            resultTextView.setText("Correct!")
+            resultTextView.text = "Correct!"
             score++
             // Change button background color to green
 //            when (selectedAnswer) {

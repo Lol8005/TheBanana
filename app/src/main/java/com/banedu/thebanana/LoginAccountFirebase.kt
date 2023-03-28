@@ -63,7 +63,7 @@ class LoginAccountFirebase : AppCompatActivity() {
 
         //region Button On Click Listener
 
-        btn_clear.setOnClickListener(){
+        btn_clear.setOnClickListener {
             email = edt_email.text.toString()
             password = edt_password.text.toString()
 
@@ -75,7 +75,7 @@ class LoginAccountFirebase : AppCompatActivity() {
             }
         }
 
-        btn_login.setOnClickListener(){
+        btn_login.setOnClickListener {
             email = edt_email.text.toString()
             password = edt_password.text.toString()
 
