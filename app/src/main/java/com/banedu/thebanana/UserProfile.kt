@@ -20,8 +20,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import layout.CourseRVAdapter
-import layout.CourseRvModal
 
 class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     FileRetriever.ImageDownloadListener {

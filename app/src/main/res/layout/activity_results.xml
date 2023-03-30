@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgss"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".subjectselection">
+    tools:context=".results">
 
     <LinearLayout
         android:id="@+id/linearLayout8"
@@ -19,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnBackHomeFromSS"
+            android:id="@+id/btnBackHomeFromRes"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
@@ -35,42 +32,30 @@
             app:srcCompat="@drawable/returnicon" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/subjectTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Choose a subject"
-        android:textSize="24sp" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/mathRadio"
+        <TextView
+            android:id="@+id/scoreLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Math" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="24dp"
+            android:text="Your Quiz Score:"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
 
-        <RadioButton
-            android:id="@+id/scienceRadio"
+        <TextView
+            android:id="@+id/scoreValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Science" />
+            android:layout_gravity="center_horizontal"
+            android:text="0/10"
+            android:textColor="@android:color/black"
+            android:textSize="48sp" />
 
-        <!-- Add more radio buttons for other subjects if needed -->
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/startquizButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Start Quiz" />
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -169,8 +169,4 @@ class Setting : AppCompatActivity() {
             btn_music.setImageResource(R.drawable.musicicon)
         }
     }
-
-    fun updateMusicVolInRealTime(){
-
-    }
 }

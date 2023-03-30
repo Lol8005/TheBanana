@@ -3,14 +3,12 @@ package com.banedu.thebanana
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.Toast
+import android.widget.*
 
 class subjectselection : AppCompatActivity() {
 
     private lateinit var startquizButton: Button
+    lateinit var btnBackHomeFromSS: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +22,13 @@ class subjectselection : AppCompatActivity() {
         //endregion
 
         startquizButton = findViewById<Button>(R.id.startquizButton)
+        btnBackHomeFromSS = findViewById(R.id.btnBackHomeFromSS)
         val subjectRadioGroup = findViewById<RadioGroup>(R.id.radioGroup)
+
+        btnBackHomeFromSS.setOnClickListener {
+            val intent = Intent(this, index::class.java)
+            startActivity(intent)
+        }
 
         startquizButton.setOnClickListener {
             val selectedSubjectId = subjectRadioGroup.checkedRadioButtonId

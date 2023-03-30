@@ -19,7 +19,7 @@ class FlashcardClass : AppCompatActivity() {
     private lateinit var answerButton: Button
     private lateinit var nextButton: Button
     private lateinit var shuffleButton: Button
-    private lateinit var buttonGoToSecondActivity: Button
+    lateinit var btnBackHomeFromFC: ImageButton
 
     //    The list of flashcards for the current subject. Defaults to an empty list.
     private var currentFlashcards: List<Flashcard> = emptyList()
@@ -37,19 +37,13 @@ class FlashcardClass : AppCompatActivity() {
 
         //endregion
 
-//        button to next page
-        buttonGoToSecondActivity = findViewById(R.id.buttonGoToSecondActivity)
-        buttonGoToSecondActivity.setOnClickListener {
-            val intent = Intent(this, subjectselection::class.java)
-            startActivity(intent)
-        }
-
         // Initialize views
         flashcardSpinner = findViewById(R.id.flashcardSpinner)
         questionTextView = findViewById(R.id.questionTxt)
         answerButton = findViewById(R.id.answerButton)
         nextButton = findViewById(R.id.nextButton)
         shuffleButton = findViewById(R.id.shuffleButton)
+        btnBackHomeFromFC = findViewById(R.id.btnBackHomeFromFC)
 
         // Create the math and science flashcards
         val mathFlashcards = listOf(
@@ -63,7 +57,7 @@ class FlashcardClass : AppCompatActivity() {
             Flashcard("What is the area of a rectangle with length 10 and width 5?", "50"),
             Flashcard("What is the circumference of a circle with radius 4?", "25.13"),
             Flashcard("What is the sum of the first 10 positive integers?", "55"),
-            Flashcard("What is teh absolute value of -5", "5"),
+            Flashcard("What is the absolute value of -5", "5"),
             Flashcard("What is the slope of a line that passes through the points (2,3) and (4,7)?", "2"),
             Flashcard("What is the perimeter of a triangle with sides of length 5, 7, and 9?", "21"),
             Flashcard("What is the derivative of 3?", "0"),
@@ -86,6 +80,11 @@ class FlashcardClass : AppCompatActivity() {
             Flashcard("What is the name of the process by which an animal changes form during its life cycle?", "Metamorphosis"),
             Flashcard("What is the name of the process by which water evaporates from the leaves of plants?", "Transpiration")
         )
+
+        btnBackHomeFromFC.setOnClickListener {
+            val intent = Intent(this, index::class.java)
+            startActivity(intent)
+        }
 
         // Creates a list of options for the flashcard subject spinner
         val flashcardOptions = listOf("Math", "Science")
@@ -114,8 +113,13 @@ class FlashcardClass : AppCompatActivity() {
 
         // Set up the answer button
         answerButton.setOnClickListener {
-            val currentFlashcard = currentFlashcards[currentIndex]
-            questionTextView.text = currentFlashcard.answer
+            if (answerButton.text == "Answer") {
+                questionTextView.text = currentFlashcards[currentIndex].answer
+                answerButton.text = "Question"
+            } else {
+                questionTextView.text = currentFlashcards[currentIndex].question
+                answerButton.text = "Answer"
+            }
         }
 
         // Set up the next button

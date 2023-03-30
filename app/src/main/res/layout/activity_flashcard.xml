@@ -5,34 +5,77 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF4BD"
     tools:context=".FlashcardClass">
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBackHomeFromFC"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/circularbananaframe"
+            android:backgroundTint="#FF0000"
+            android:contentDescription="back"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/returnicon" />
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/flashcardSpinner"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:contentDescription="Select a subject"
+        android:padding="8dp"
+        android:spinnerMode="dropdown"
+        android:textSize="16sp"
+        android:typeface="sans"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
-    <TextView
-        android:id="@+id/questionTxt"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:hint="Questions will appear here"
-        android:padding="20dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/flashcardSpinner" />
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/rounded_corners"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/answerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flashcardSpinner">
+
+        <TextView
+            android:id="@+id/questionTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:hint="Questions will appear here"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/answerButton"
@@ -54,7 +97,7 @@
         android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="200dp"
         android:backgroundTint="#88ADBD"
         android:fontFamily="@font/nice_sugar"
         android:text="Next"
@@ -67,23 +110,12 @@
         android:layout_width="130dp"
         android:layout_height="60dp"
         android:layout_marginLeft="44dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="200dp"
         android:backgroundTint="#88ADBD"
         android:fontFamily="@font/nice_sugar"
         android:text="Shuffle"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonGoToSecondActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="nextpage"
-        app:layout_constraintBottom_toTopOf="@+id/answerButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
