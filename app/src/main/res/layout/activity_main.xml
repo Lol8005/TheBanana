@@ -38,8 +38,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nice_sugar"
             android:text="The Banana"
-            android:textColor="@color/white"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="70sp" />
 
         <LinearLayout
