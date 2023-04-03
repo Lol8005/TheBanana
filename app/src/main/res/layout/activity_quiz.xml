@@ -35,38 +35,34 @@
             android:padding="5dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/returnicon" />
+
+        <TextView
+            android:id="@+id/currentquesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/nice_sugar"
+            android:hint="Question Num here"
+            android:textSize="20sp" />
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/currentquesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/nice_sugar"
-        android:hint="Question Num here"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="100dp"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="#F9FFEE"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/nextquesButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
         <TextView
             android:id="@+id/questionTextView"
@@ -144,7 +140,6 @@
         android:height="60dp"
         android:background="#88ADBD"
         android:backgroundTint="#88ADBD"
-        android:fontFamily="@font/pt_sans_bold"
         android:text="Next"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/scoreTextView"

@@ -89,7 +89,7 @@ class FlashcardClass : AppCompatActivity() {
         // Creates a list of options for the flashcard subject spinner
         val flashcardOptions = listOf("Math", "Science")
         // Create an ArrayAdapter to display the options in the spinner
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, flashcardOptions)
+        val adapter = ArrayAdapter(this, R.layout.selected_sub_item, flashcardOptions)
         // Sets the ArrayAdapter as the adapter for the flashcard subject spinner
         flashcardSpinner.adapter = adapter
         // Sets an item selected listener for the flashcard subject spinner
