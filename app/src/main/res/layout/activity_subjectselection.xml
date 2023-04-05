@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgss2"
+    android:background="@drawable/bgss"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".subjectselection">
 
+
     <LinearLayout
-        android:id="@+id/linearLayout8"
+        android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -35,78 +37,88 @@
             app:srcCompat="@drawable/returnicon" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
-        <TextView
-            android:id="@+id/txtStudyTimerTitle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/nice_sugar"
-            android:text="QUIZ"
-            android:textAlignment="center"
-            android:textSize="50dp" />
-    </LinearLayout>
-    <LinearLayout
+    <!-- Add more radio buttons for other subjects if needed -->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout1">
+
+        <TextView
+            android:id="@+id/txtStudyTimerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nice_sugar"
+            android:text="QUIZ"
+            android:textSize="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/subjectTxt"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nice_sugar"
             android:text="Choose a subject"
-            android:textAlignment="center"
-            android:textSize="25sp" />
-    </LinearLayout>
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtStudyTimerTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
+    <LinearLayout
+        android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout9"
+        tools:layout_editor_absoluteX="16dp">
 
-        <RadioButton
-            android:id="@+id/mathRadio"
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nice_sugar"
-            android:buttonTint="@color/black"
-            android:textSize="20sp"
-            android:text="Math" />
+            android:layout_height="wrap_content">
 
-        <RadioButton
-            android:id="@+id/scienceRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nice_sugar"
-            android:buttonTint="@color/black"
-            android:textSize="20sp"
-            android:text="Science" />
+            <RadioButton
+                android:id="@+id/mathRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/nice_sugar"
+                android:text="Math"
+                android:textSize="20sp" />
 
-        <!-- Add more radio buttons for other subjects if needed -->
-
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/scienceRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/white"
+                android:fontFamily="@font/nice_sugar"
+                android:text="Science"
+                android:textSize="20sp" />
+        </RadioGroup>
+    </LinearLayout>
 
     <Button
         android:id="@+id/startquizButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:backgroundTint="#FF6600"
         android:fontFamily="@font/nice_sugar"
         android:padding="10dp"
+        android:text="Start Quiz"
         android:textSize="20sp"
-        android:text="Start Quiz" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout19" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,42 +5,50 @@
     android:layout_height="wrap_content"
     android:stretchColumns="1,2,3,4">
 
-    <TableRow>
+    <TableRow android:background="#FBF5B2">
         <!--on below line we are creating
             a simple image view-->
         <TextView
             android:id="@+id/idTVIndex"
-            android:layout_gravity="center"
             android:layout_width="0dp"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:layout_weight="0.45"
+            android:fontFamily="@font/nice_sugar"
             android:padding="10dp"
-            android:layout_weight="0.5"
-            android:layout_column="1" />
+            android:textSize="14sp" />
 
         <!--on below line we are creating
             a simple text view-->
         <TextView
             android:id="@+id/idTVSubject"
-            android:layout_gravity="center"
             android:layout_width="0dp"
-            android:padding="10dp"
+            android:layout_column="1"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_column="1" />
+            android:fontFamily="@font/nice_sugar"
+            android:padding="10dp"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/idTVQdate"
-            android:layout_gravity="center"
             android:layout_width="0dp"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:layout_weight="1.1"
+            android:fontFamily="@font/nice_sugar"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_column="1" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/idTVBananaEarned"
-            android:layout_gravity="center"
             android:layout_width="0dp"
+            android:layout_column="1"
+            android:layout_gravity="center"
+            android:layout_weight="0.9"
+            android:fontFamily="@font/nice_sugar"
             android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_column="1" />
+            android:textSize="14sp" />
 
     </TableRow>
 

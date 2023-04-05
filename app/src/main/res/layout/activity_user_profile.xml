@@ -1,22 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#79FFF4"
+    android:background="@drawable/bgprofile2"
     tools:context=".UserProfile"
-    android:stretchColumns="1,2,3,4"
     android:clickable="true"
     android:focusableInTouchMode="true" >
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_return"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/circularbananaframe"
+            android:backgroundTint="#FF0000"
+            android:contentDescription="back"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/returnicon" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+        <TextView
+            android:id="@+id/txtStudyTimerTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nice_sugar"
+            android:text="MY PROFILE"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:textSize="50dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll3"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#BBFECC91">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl1"
+        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:clickable="true"
         android:focusableInTouchMode="true" >
 
@@ -24,20 +81,22 @@
             android:id="@+id/btn_profile_picture"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:adjustViewBounds="true"
             android:background="@drawable/circularbananaframe"
             android:backgroundTint="#F8F8F8"
             android:contentDescription="Profile Picture"
-            android:adjustViewBounds="true"
             android:padding="10dp"
             android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bananathemebackground" />
+            app:srcCompat="@drawable/banana" />
 
         <EditText
             android:id="@+id/edtUName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nice_sugar"
             android:layout_marginLeft="5dp"
             android:background="@null"
             android:ems="10"
@@ -48,36 +107,98 @@
             app:layout_constraintStart_toEndOf="@+id/btn_profile_picture"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/btn_return"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:contentDescription="return"
-            android:adjustViewBounds="true"
-            android:background="#00FFFFFF"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/returnicon" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TableLayout
+            android:id="@+id/table1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="25dp"
+            android:stretchColumns="1,2,3,4"
+            app:layout_constraintTop_toBottomOf="@id/cl1">
+
+            <TableRow
+                android:id="@+id/TRHeader"
+                android:background="#FF9800">
+
+                <TextView
+                    android:id="@+id/idTVIndex"
+                    android:layout_width="0dp"
+                    android:layout_column="1"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.45"
+                    android:fontFamily="@font/nice_sugar"
+                    android:padding="10dp"
+                    android:text="No."
+                    android:textSize="15dp" />
+
+                <!--on below line we are creating
+            a simple text view-->
+                <TextView
+                    android:id="@+id/idTVSubject"
+                    android:layout_width="0dp"
+                    android:layout_column="1"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/nice_sugar"
+                    android:padding="10dp"
+                    android:text="Subject"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/idTVQdate"
+                    android:layout_width="0dp"
+                    android:layout_column="1"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.1"
+                    android:fontFamily="@font/nice_sugar"
+                    android:padding="10dp"
+                    android:text="Date"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/idTVBananaEarned"
+                    android:layout_width="0dp"
+                    android:layout_column="1"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.9"
+                    android:fontFamily="@font/nice_sugar"
+                    android:padding="10dp"
+                    android:text="Banana Earned"
+                    android:textSize="15dp" />
+            </TableRow>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/idRVRecord"
+                android:layout_width="match_parent"
+                android:layout_height="195dp"
+                android:layout_below="@id/TRHeader" />
+        </TableLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        >
 
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:layout_weight="1"
+            android:backgroundTint="#FF5722"
             android:fontFamily="@font/nice_sugar"
             android:paddingTop="18dp"
             android:paddingBottom="14dp"
@@ -85,51 +206,4 @@
             android:textSize="15sp"
             app:cornerRadius="15dp" />
     </LinearLayout>
-    <TableRow
-        android:id="@+id/TRHeader"
-        android:layout_below="@id/ll1">
-        <TextView
-            android:text="No."
-            android:id="@+id/idTVIndex"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:padding="10dp"
-            android:layout_weight="0.5"
-            android:layout_column="1" />
-
-        <!--on below line we are creating
-            a simple text view-->
-        <TextView
-            android:text="Subject"
-            android:id="@+id/idTVSubject"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_column="1" />
-
-        <TextView
-            android:text="Date"
-            android:id="@+id/idTVQdate"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_column="1" />
-
-        <TextView
-            android:text="Banana Earned"
-            android:id="@+id/idTVBananaEarned"
-            android:layout_gravity="center"
-            android:layout_width="0dp"
-            android:padding="10dp"
-            android:layout_weight="1"
-            android:layout_column="1" />
-    </TableRow>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idRVRecord"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/TRHeader"
-        />
-</TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

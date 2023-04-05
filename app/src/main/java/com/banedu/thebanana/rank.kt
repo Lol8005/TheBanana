@@ -38,9 +38,12 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rank)
+        //region Hide toolbar
 
-//        auth=Firebase.auth
-//        val uid =auth.currentUser?.uid.toString()
+        val HSB = HideSystemBar()
+        HSB.hide(window)
+
+        //endregion
         val RefRank = Firebase.database.getReference("Users")
 
         txtFplace = findViewById(R.id.txtFplace)

@@ -42,10 +42,6 @@
         lateinit var selectedSubject: String
         val handler = Handler(Looper.getMainLooper())
 
-        //    lateinit var auth: FirebaseAuth
-    //    lateinit var DB_Reference: DatabaseReference
-    //
-
         // Create the math and science flashcards
         //TODO:finish list of questions
         private val mathQuestions = listOf(
@@ -103,12 +99,12 @@
             option3Button = findViewById(R.id.option3Button)
             resultTextView = findViewById(R.id.resultTextView)
             scoreTextView = findViewById(R.id.scoreTextView)
-            btnBackSSFromQuiz = findViewById(R.id.btnBackSSFromQuiz)
+            btnBackSSFromQuiz = findViewById(R.id.btnBackHomeFromSS)
             nextquesButton = findViewById(R.id.nextquesButton)
             currentquesTextView = findViewById(R.id.currentquesTextView)
 
             //Hides Button while answering Question
-            nextquesButton.setVisibility(View.INVISIBLE)
+            nextquesButton.visibility = View.INVISIBLE
 
             // Assign value to subjectQuestions based on user's selected subject, then shuffle and take 10 questions only
             subjectQuestions = if (selectedSubject == "Math") {
@@ -119,8 +115,7 @@
 
             //Back Button
             btnBackSSFromQuiz.setOnClickListener {
-                val intent = Intent(this, subjectselection::class.java)
-                startActivity(intent)
+                finish()
             }
 
             // Set up initial question
@@ -166,12 +161,13 @@
             option1Button.text = currentQuestionOptions[0]
             option2Button.text = currentQuestionOptions[1]
             option3Button.text = currentQuestionOptions[2]
-            nextquesButton.setVisibility(View.VISIBLE)
         }
 
         private fun checkAnswer(selectedAnswer: String) {
 
             val correctAnswer = currentQuestion.answer
+
+            resultTextView.visibility = View.VISIBLE
 
             Log.d("option", "${currentQuestion.option1} ${currentQuestion.option2} ${currentQuestion.option3}")
             Log.d("optionBtnText", "${option1Button.text} ${option1Button.text} ${option1Button.text}")
@@ -207,7 +203,7 @@
             option2Button.isClickable = false
             option3Button.isClickable = false
 
-            nextquesButton.setVisibility(View.VISIBLE)
+            nextquesButton.visibility = View.VISIBLE
 
             // Update score and score text view
             scoreTextView.text = "Score: $score"
@@ -218,7 +214,7 @@
                 option1Button.isEnabled = false
                 option2Button.isEnabled = false
                 option3Button.isEnabled = false
-                nextquesButton.setVisibility(View.INVISIBLE)
+                nextquesButton.visibility = View.INVISIBLE
 
 
                 //Updating score to database
@@ -258,6 +254,8 @@
             } else {
                 nextquesButton.setOnClickListener {
                     setNextQuestion(getNextQuestion())
+                    nextquesButton.visibility = View.INVISIBLE
+                    resultTextView.visibility = View.INVISIBLE
                 }
             }
 

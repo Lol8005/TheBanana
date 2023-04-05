@@ -11,6 +11,7 @@ class results : AppCompatActivity() {
     private lateinit var scoreLabel: TextView
     private lateinit var scoreValue: TextView
     private lateinit var btnBackHomeFromRes: ImageButton
+    private lateinit var remarkstextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +20,7 @@ class results : AppCompatActivity() {
         scoreLabel = findViewById(R.id.scoreLabel)
         scoreValue = findViewById(R.id.scoreValue)
         btnBackHomeFromRes = findViewById(R.id.btnBackHomeFromRes)
+        remarkstextView = findViewById(R.id.remarkstextView)
 
         //Setup Back Button
         btnBackHomeFromRes.setOnClickListener {
@@ -32,5 +34,16 @@ class results : AppCompatActivity() {
 
         //Set text for scoreValue to be score/10
         scoreValue.text = "$score/10"
+
+        //Set remarks on users performance
+        if (score >= 10) {
+            remarkstextView.text = "Congratulations!! You're doing great!!!"
+        } else if (score >= 7) {
+            remarkstextView.text = "You did great!!, be careful next time and you might get them all right."
+        } else if (score >= 4) {
+            remarkstextView.text = "Try harder next time..."
+        } else {
+            remarkstextView.text = "You should study your textbook more..."
+        }
     }
 }

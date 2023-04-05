@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgquiz"
     tools:context=".results">
 
     <LinearLayout
@@ -33,9 +34,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout17"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
 
         <TextView
             android:id="@+id/scoreLabel"
@@ -44,18 +50,39 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="48dp"
             android:layout_marginBottom="24dp"
+            android:fontFamily="@font/nice_sugar"
             android:text="Your Quiz Score:"
             android:textColor="@android:color/black"
-            android:textSize="24sp" />
+            android:textSize="48sp" />
 
         <TextView
             android:id="@+id/scoreValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/nice_sugar"
             android:text="0/10"
-            android:textColor="@android:color/black"
-            android:textSize="48sp" />
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="60sp" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17">
+
+        <TextView
+            android:id="@+id/remarkstextView"
+            android:layout_width="169dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nice_sugar"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="34sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

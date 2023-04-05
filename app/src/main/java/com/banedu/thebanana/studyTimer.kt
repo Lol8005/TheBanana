@@ -66,7 +66,6 @@ class studyTimer : AppCompatActivity() {
     lateinit var mediaplayer: MediaPlayer
     lateinit var SLD: SaveLoadData
 
-    //TODO: define auth & storage
     lateinit var auth: FirebaseAuth
     lateinit var DB_Reference: DatabaseReference
 
@@ -112,7 +111,6 @@ class studyTimer : AppCompatActivity() {
         auth = Firebase.auth
         DB_Reference = DB_Connection().connectRealDB()
 
-        //TODO: Get uid from auth
         val uid = auth.currentUser?.uid.toString()
         var databaseRefTimeNow = Firebase.database.getReference("Study Time Record").child(uid).child(current.toString())
 
@@ -154,7 +152,6 @@ class studyTimer : AppCompatActivity() {
 
         //region Time Button
 
-//      TODO: ONCE START BUTTON IS CLICKED, TIMER STARTS
         btnStartTimer.setOnClickListener {
             clickbuttonSFX.start()
 
@@ -213,7 +210,12 @@ class studyTimer : AppCompatActivity() {
                                 Log.w("ERROR", "Failed to read value.", error.toException())
                             }
                         })
-
+                        edtHours.isFocusable = true
+                        edtMinutes.isFocusable = true
+                        edtSeconds.isFocusable = true
+                        edtHours.isFocusableInTouchMode = true
+                        edtMinutes.isFocusableInTouchMode = true
+                        edtSeconds.isFocusableInTouchMode = true
                     }
 
                     override fun onTick(p0: Long) {
@@ -230,7 +232,7 @@ class studyTimer : AppCompatActivity() {
         }
         //endregion
 
-//      //TODO: Set Music Player(3 TRACKS)
+
         //region Music
 
         mediaplayer.setOnCompletionListener {
@@ -277,8 +279,6 @@ class studyTimer : AppCompatActivity() {
 
         //endregion
 
-//      TODO: Statistic
-//      TODO: Total Today & Total Accumulated
         //region Stats
         btnGenerate.setOnClickListener {
             clickbuttonSFX.start()

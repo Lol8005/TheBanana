@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnBackSSFromQuiz"
+            android:id="@+id/btnBackHomeFromSS"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
@@ -117,9 +117,9 @@
         android:id="@+id/resultTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="125dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="200dp"
+        android:layout_marginEnd="125dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/nice_sugar"
         android:textColor="@android:color/holo_red_dark"
@@ -131,17 +131,18 @@
 
     <Button
         android:id="@+id/nextquesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="161dp"
+        android:layout_height="79dp"
         android:layout_marginStart="120dp"
         android:layout_marginEnd="120dp"
         android:layout_marginBottom="50dp"
         android:width="150dp"
         android:height="60dp"
-        android:background="#88ADBD"
-        android:backgroundTint="#88ADBD"
+        android:background="@null"
+        android:backgroundTint="#003399"
+        android:fontFamily="@font/nice_sugar"
         android:text="Next"
-        android:textSize="24sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/scoreTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

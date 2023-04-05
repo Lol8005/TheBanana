@@ -42,9 +42,6 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
 
-        //TODO: Get uid from auth
-
-        //TODO:Render Pfp uri
         fileRetriever.loadImage(this)
 
         imgBtnPfp=findViewById(R.id.imgBtnPfp)
@@ -135,6 +132,10 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
             startActivity(intent)
         }
 
+        imgBtnPfp.setOnClickListener{
+            startActivity(Intent(this, UserProfile::class.java))
+            overridePendingTransition(0, 0) //Remove transition animation
+        }
     }
     override fun onImageDownloaded(uri: Uri?) {
         // Do something with the downloaded URI
