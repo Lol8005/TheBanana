@@ -11,6 +11,8 @@ class SaveLoadData {
     var email: String = ""
     var password: String = ""
 
+    var role: String = ""
+
     var volume: Int = 0
     var music: Int = 0
 
@@ -20,6 +22,8 @@ class SaveLoadData {
         username = sharedPreferences.getString("username", "").toString()
         email = sharedPreferences.getString("email", "").toString()
         password = sharedPreferences.getString("password", "").toString()
+
+        role = sharedPreferences.getString("role", "student").toString()
 
         volume = sharedPreferences.getInt("volume", 100)
         music = sharedPreferences.getInt("music", 100)
@@ -32,6 +36,8 @@ class SaveLoadData {
         editor.putString("username", username)
         editor.putString("email", email)
         editor.putString("password", password)
+
+        editor.putString("role", role)
 
         editor.putInt("volume", volume)
         editor.putInt("music", music)

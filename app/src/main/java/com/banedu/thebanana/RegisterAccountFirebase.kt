@@ -134,10 +134,13 @@ class RegisterAccountFirebase : AppCompatActivity() {
                 DB_Reference.child("Users").child(id).child("username").setValue(username)
                 //TODO: Added Total_Banana_Earned
                 DB_Reference.child("Users").child(id).child("Total_Banana_Earned").setValue(0)
+                DB_Reference.child("Users").child(id).child("role").setValue("student")
 
                 SLD.username = username
                 SLD.email = email
                 SLD.password = password
+
+                SLD.role = "student"
 
                 SLD.SaveData(this)
 

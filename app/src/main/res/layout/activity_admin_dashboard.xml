@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bananathemebackground"
     android:orientation="vertical"
-    tools:context=".index">
+    tools:context=".AdminDashboard">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayout2"
@@ -44,64 +44,25 @@
                     android:id="@+id/RoundCornerTV1"
                     android:layout_width="120dp"
                     android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
                     android:backgroundTint="#A4DDF6"
                     android:textAlignment="center"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
                     app:cardCornerRadius="20dp">
 
                     <TextView
                         android:id="@+id/txtUserName"
                         android:layout_width="120dp"
                         android:layout_height="50dp"
-                        android:gravity="center"
                         android:fontFamily="@font/nice_sugar"
+                        android:gravity="center"
                         android:text="" />
 
                 </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageViewBanana"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="10dp"
-                    android:adjustViewBounds="true"
-                    android:background="@drawable/circularbananaframe"
-                    android:backgroundTint="#ffffff"
-                    android:contentDescription="Banana"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/banana" />
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/RoundCornerTV2"
-                    android:layout_width="120dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:backgroundTint="#A4DDF6"
-                    app:cardCornerRadius="20dp">
-
-                    <TextView
-                        android:id="@+id/txtBananaCount"
-                        android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:gravity="center"
-                        android:fontFamily="@font/nice_sugar"
-                        android:text="" />
-
-                </androidx.cardview.widget.CardView>
-
-            </LinearLayout>
         </LinearLayout>
 
         <ImageButton
@@ -120,16 +81,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--Logo-->
-
-    <!--Shortcuts to each Page-->
-
     <TextView
-        android:id="@+id/edu_title"
+        android:id="@+id/edu_title4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nice_sugar"
-        android:text="The Banana"
+        android:text="Admin Dashboard"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="70sp"
@@ -139,13 +96,14 @@
         app:layout_constraintTop_toBottomOf="@+id/ConstraintLayout2" />
 
     <LinearLayout
+        android:id="@+id/linearLayout18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edu_title">
+        app:layout_constraintTop_toBottomOf="@+id/edu_title4">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -167,7 +125,7 @@
                     android:layout_width="170dp"
                     android:layout_height="170dp"
                     android:background="#A4DDF6"
-                    android:contentDescription="Study Timer"
+                    android:contentDescription="Edit Question"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:paddingTop="10dp"
                     android:paddingBottom="50dp"
@@ -176,16 +134,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/studytimericon" />
+                    app:srcCompat="@drawable/editquestion" />
 
                 <TextView
                     android:id="@+id/txtEditQuestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Study Timer"
+                    android:layout_marginBottom="20dp"
+                    android:text="Edit Question"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -197,34 +155,35 @@
                 android:layout_weight="1" />
 
             <!--Shortcuts To Flashcards Page-->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <ImageButton
-                    android:id="@+id/btnViewResult"
+                    android:id="@+id/buttonQuiz"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
                     android:background="#A4DDF6"
-                    android:contentDescription="Flash Cards"
-                    android:scaleType="fitCenter"
+                    android:contentDescription="Quiz"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:paddingTop="20dp"
                     android:paddingBottom="50dp"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/flashcardsiscon"
-                    android:foreground="?android:attr/selectableItemBackground"/>
+                    app:srcCompat="@drawable/quizicon" />
 
                 <TextView
-                    android:id="@+id/txtViewResult"
+                    android:id="@+id/txtQuiz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Flash Cards"
+                    android:layout_marginBottom="20dp"
+                    android:text="Quiz"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -243,44 +202,7 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
             <!--Shortcuts To Quiz Page-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/buttonQuiz"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:background="#A4DDF6"
-                    android:contentDescription="Quiz"
-                    android:scaleType="fitCenter"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="50dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/quizicon"
-                    android:foreground="?android:attr/selectableItemBackground"/>
-
-                <TextView
-                    android:id="@+id/txtQuiz"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quiz"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Space
                 android:layout_width="wrap_content"
@@ -298,24 +220,24 @@
                     android:layout_height="170dp"
                     android:background="#A4DDF6"
                     android:contentDescription="Rank"
-                    android:scaleType="fitCenter"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:paddingTop="20dp"
                     android:paddingBottom="50dp"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rankingicon"
-                    android:foreground="?android:attr/selectableItemBackground"/>
+                    app:srcCompat="@drawable/rankingicon" />
 
                 <TextView
                     android:id="@+id/txtRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:text="Rank"
                     android:textColor="@color/black"
                     android:textSize="20dp"
-                    android:layout_marginBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -327,5 +249,4 @@
                 android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

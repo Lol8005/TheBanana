@@ -13,6 +13,8 @@ class results : AppCompatActivity() {
     private lateinit var btnBackHomeFromRes: ImageButton
     private lateinit var remarkstextView: TextView
 
+    lateinit var SLD: SaveLoadData
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
@@ -22,10 +24,20 @@ class results : AppCompatActivity() {
         btnBackHomeFromRes = findViewById(R.id.btnBackHomeFromRes)
         remarkstextView = findViewById(R.id.remarkstextView)
 
+        SLD = SaveLoadData()
+        SLD.LoadData(this)
+
         //Setup Back Button
         btnBackHomeFromRes.setOnClickListener {
-            val intent = Intent(this, index::class.java)
-            startActivity(intent)
+            if(SLD.role == "student"){
+                val intent = Intent(this, index::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(this, AdminDashboard::class.java)
+                startActivity(intent)
+            }
+
+            finish()
         }
 
         //Get score from Quiz page

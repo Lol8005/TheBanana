@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_setting: ImageButton
     lateinit var btn_profile: ImageButton
     lateinit var btn_exit: ImageButton
+
+    lateinit var txtRole: TextView
 
     lateinit var SLD: SaveLoadData
 
@@ -39,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         btn_profile = findViewById(R.id.btn_profile)
         btn_exit = findViewById(R.id.btn_exit)
 
+        txtRole = findViewById(R.id.txtRole)
+
         SLD = SaveLoadData()
         SLD.LoadData(this)
 
@@ -57,13 +62,28 @@ class MainActivity : AppCompatActivity() {
 
         //endregion
 
+        //set role text
+        if(SLD.role == "admin"){
+            txtRole.text = "Admin"
+        }else{
+            txtRole.text = "Student"
+        }
+
         //region Button On Click Listener
 
         btn_play.setOnClickListener{
             clickbuttonSFX.start()
 
-            startActivity(Intent(this, index::class.java))
-            overridePendingTransition(0, 0) //Remove transition animation
+            //go to base on role
+            if(SLD.role == "admin"){
+                //go to admin dashboard
+                startActivity(Intent(this, AdminDashboard::class.java))
+                overridePendingTransition(0, 0) //Remove transition animation
+            }else{
+                //go to student dashboard
+                startActivity(Intent(this, index::class.java))
+                overridePendingTransition(0, 0) //Remove transition animation
+            }
         }
 
         btn_setting.setOnClickListener{
@@ -87,6 +107,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         //endregion
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        SLD.LoadData(this)
+
+        if(SLD.role == "admin"){
+            txtRole.text = "Admin"
+        }else{
+            txtRole.text = "Student"
+        }
     }
 
     fun checkPlayerLogin(){

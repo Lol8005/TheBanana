@@ -3,12 +3,30 @@ package com.banedu.thebanana
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 
 class subjectselection : AppCompatActivity() {
 
     private lateinit var startquizButton: Button
     lateinit var btnBackHomeFromSS: ImageButton
+
+    lateinit var subjectRadioRV: RecyclerView
+
+    lateinit var topicSelectionRVAdapter: TopicSelectionRVAdapter
+    var topicRecord = ArrayList<TopicRecordFormat>()
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var DB_Reference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,25 +39,71 @@ class subjectselection : AppCompatActivity() {
 
         //endregion
 
-        startquizButton = findViewById<Button>(R.id.startquizButton)
+        auth = Firebase.auth
+        DB_Reference = DB_Connection().connectRealDB()
+
+        subjectRadioRV = findViewById(R.id.subjectRadioRV)
+
+        subjectRadioRV.layoutManager= LinearLayoutManager(this)
+        topicSelectionRVAdapter = TopicSelectionRVAdapter(topicRecord)
+        subjectRadioRV.adapter = topicSelectionRVAdapter
+
+        startquizButton = findViewById(R.id.startquizButton)
         btnBackHomeFromSS = findViewById(R.id.btnBackHomeFromSS)
-        val subjectRadioGroup = findViewById<RadioGroup>(R.id.radioGroup)
+
+        DB_Reference.child("Topic").addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                topicRecord.clear()
+                for (uid in snapshot.children){
+                   for(questionID in uid.children){
+                       //check if question exist
+                       if(questionID.child("0").exists()){
+                           topicRecord.add(
+                               TopicRecordFormat(questionID.key.toString(),
+                                   questionID.child("TopicName").value.toString(),
+                                   uid.key.toString()
+                               )
+                           )
+                       }
+                   }
+               }
+
+                topicSelectionRVAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
 
         btnBackHomeFromSS.setOnClickListener {
-            val intent = Intent(this, index::class.java)
-            startActivity(intent)
+            finish()
         }
 
         startquizButton.setOnClickListener {
-            val selectedSubjectId = subjectRadioGroup.checkedRadioButtonId
-            if (selectedSubjectId != -1) {
-                val selectedSubject = findViewById<RadioButton>(selectedSubjectId)
+//            val selectedSubjectId = subjectRadioGroup.checkedRadioButtonId
+//            Log.d("radio ID", selectedSubjectId.toString())
+//
+//            if (selectedSubjectId != -1) {
+////                val selectedSubject = findViewById<RadioButton>(selectedSubjectId)
+////                val intent = Intent(this, quiz::class.java)
+////                intent.putExtra("selected_subject", selectedSubject.text.toString())
+////                startActivity(intent)
+//            } else {
+//                Toast.makeText(this, "Please select a subject", Toast.LENGTH_SHORT).show()
+//            }
+            val selectedSubjectId = topicSelectionRVAdapter.getSelectedItemId()
+
+            if (selectedSubjectId != "") {
                 val intent = Intent(this, quiz::class.java)
-                intent.putExtra("selected_subject", selectedSubject.text.toString())
+                intent.putExtra("selected_subject", selectedSubjectId)
+                intent.putExtra("authorUID", topicSelectionRVAdapter.getSelectedItemAuthor())
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Please select a subject", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 }

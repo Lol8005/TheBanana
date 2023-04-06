@@ -135,6 +135,9 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
                 SLD.username = ""
                 SLD.email = ""
                 SLD.password = ""
+
+                SLD.role = "student"
+
                 SLD.SaveData(this)
 
                 finish()

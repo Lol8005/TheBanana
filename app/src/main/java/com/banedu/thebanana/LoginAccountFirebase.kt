@@ -3,6 +3,7 @@ package com.banedu.thebanana
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -116,9 +117,22 @@ class LoginAccountFirebase : AppCompatActivity() {
                         SLD.username = it.value.toString()
                     }
 
-                    SLD.SaveData(this)
+                    //check role
+                    DB_Reference.child("Users").child(id).child("role").get().addOnSuccessListener {
+                        SLD.role = "student"
 
-                    finish()
+                        Log.d("role", it.value.toString())
+
+                        if(it.exists()){
+                            if(it.value.toString() == "admin"){
+                                SLD.role = "admin"
+                            }
+                        }
+
+                        SLD.SaveData(this)
+
+                        finish()
+                    }
                 } else {
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()

@@ -7,52 +7,44 @@ import android.content.IntentFilter
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
+class AdminDashboard : AppCompatActivity(), FileRetriever.ImageDownloadListener {
 
-    //TODO: Added File Retriever
     lateinit var imgBtnPfp: ImageButton
     lateinit var txtUserName: TextView
-    lateinit var txtBananaCount: TextView
     lateinit var imgBtnSettings: ImageButton
+    lateinit var btnEditQuestion: ImageButton
     lateinit var buttonQuiz: ImageButton
     lateinit var buttonRank: ImageButton
-    lateinit var buttonFlashCards: ImageButton
-    lateinit var buttonStudyTimer: ImageButton
-    private var auth: FirebaseAuth=Firebase.auth
-    val uid =auth.currentUser?.uid.toString()
+
+    private var auth: FirebaseAuth = Firebase.auth
+    val uid = auth.currentUser?.uid.toString()
+
     private val fileRetriever = FileRetriever(uid)
-    val database= Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_index)
+        setContentView(R.layout.activity_admin_dashboard)
 
         fileRetriever.loadImage(this)
 
-        imgBtnPfp=findViewById(R.id.imgBtnPfp)
-        txtUserName=findViewById(R.id.txtUserName)
-        txtBananaCount=findViewById(R.id.txtBananaCount)
-        imgBtnSettings=findViewById(R.id.imgBtnSettings)
+        imgBtnPfp = findViewById(R.id.imgBtnPfp)
+        txtUserName = findViewById(R.id.txtUserName)
+        imgBtnSettings = findViewById(R.id.imgBtnSettings)
+        btnEditQuestion = findViewById(R.id.btnEditQuestion)
         buttonQuiz=findViewById(R.id.buttonQuiz)
         buttonRank=findViewById(R.id.buttonRank)
-        buttonFlashCards=findViewById(R.id.btnViewResult)
-        buttonStudyTimer=findViewById(R.id.btnEditQuestion)
 
         val SLD = SaveLoadData()
         SLD.LoadData(this)
@@ -77,24 +69,6 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
 
         //endregion
 
-        //Get the username & total banana earned from database and render it.
-        //Show UserName & total banana earned
-        val RenderHomePage = database.getReference("Users").child(uid)
-        RenderHomePage.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    var banana = snapshot.child("Total_Banana_Earned").value.toString()
-                    //To check got receive the data or not -> check log cat
-                    Log.d("Retrieve data", banana)
-                    txtBananaCount.text = banana
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("Error", "Failed to read value Username.", error.toException())
-            }
-        })
-
         txtUserName.text = SLD.username
 
 
@@ -107,46 +81,43 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         }
 
         //Shortcuts To Quiz Page
-        buttonQuiz.setOnClickListener {
+        btnEditQuestion.setOnClickListener {
+            val intent = Intent(this, SelectTopic::class.java)
+            startActivity(intent)
+        }
+
+        buttonQuiz.setOnClickListener{
             val intent = Intent(this, subjectselection::class.java)
             startActivity(intent)
         }
 
-        //Shortcuts To Ranking Page
         buttonRank.setOnClickListener {
             val intent = Intent(this,rank::class.java)
             startActivity(intent)
         }
 
-        //Shortcuts To Flashcards Page
-        buttonFlashCards.setOnClickListener {
-            val intent = Intent(this, FlashcardClass::class.java)
-            startActivity(intent)
-        }
-
-        //Shortcuts To Study Timer Page
-        buttonStudyTimer.setOnClickListener {
-            val intent = Intent(this,studyTimer::class.java)
-
-            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP
-
-            startActivity(intent)
-        }
-
-        imgBtnPfp.setOnClickListener{
+        imgBtnPfp.setOnClickListener {
             startActivity(Intent(this, UserProfile::class.java))
             overridePendingTransition(0, 0) //Remove transition animation
         }
     }
+
+    override fun onBackPressed() {
+        return
+    }
+
     override fun onImageDownloaded(uri: Uri?) {
         // Do something with the downloaded URI
-        if(uri != null){
+        if (uri != null) {
             Log.d("URI", uri.toString())
 
             Glide.with(this)
                 .load(uri)
                 .into(object : CustomTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
                         // Set the Drawable to an ImageView or any other view that accepts a Drawable
                         imgBtnPfp.setImageDrawable(resource)
                     }
