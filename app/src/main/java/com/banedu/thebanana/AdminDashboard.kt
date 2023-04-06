@@ -26,7 +26,6 @@ class AdminDashboard : AppCompatActivity(), FileRetriever.ImageDownloadListener 
     lateinit var imgBtnSettings: ImageButton
     lateinit var btnEditQuestion: ImageButton
     lateinit var buttonQuiz: ImageButton
-    lateinit var buttonRank: ImageButton
 
     private var auth: FirebaseAuth = Firebase.auth
     val uid = auth.currentUser?.uid.toString()
@@ -44,7 +43,6 @@ class AdminDashboard : AppCompatActivity(), FileRetriever.ImageDownloadListener 
         imgBtnSettings = findViewById(R.id.imgBtnSettings)
         btnEditQuestion = findViewById(R.id.btnEditQuestion)
         buttonQuiz=findViewById(R.id.buttonQuiz)
-        buttonRank=findViewById(R.id.buttonRank)
 
         val SLD = SaveLoadData()
         SLD.LoadData(this)
@@ -88,11 +86,6 @@ class AdminDashboard : AppCompatActivity(), FileRetriever.ImageDownloadListener 
 
         buttonQuiz.setOnClickListener{
             val intent = Intent(this, subjectselection::class.java)
-            startActivity(intent)
-        }
-
-        buttonRank.setOnClickListener {
-            val intent = Intent(this,rank::class.java)
             startActivity(intent)
         }
 

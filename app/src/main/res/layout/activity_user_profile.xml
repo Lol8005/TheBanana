@@ -178,6 +178,18 @@
                 android:layout_height="195dp"
                 android:layout_below="@id/TRHeader" />
         </TableLayout>
+
+        <TextView
+            android:id="@+id/txtTotalTopic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="@font/nice_sugar"
+            android:text="\????"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
     <LinearLayout

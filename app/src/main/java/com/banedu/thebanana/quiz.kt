@@ -185,39 +185,49 @@ class quiz : AppCompatActivity() {
 
             resultTextView.setTextColor(getColorStateList(android.R.color.black))
 
-            //Updating score to database
-            val database = Firebase.database
-            val uid = (FirebaseAuth.getInstance().currentUser?.uid).toString()
-            val currentDate = Calendar.getInstance().time
+            var SLD = SaveLoadData()
+            SLD.LoadData(this)
 
-            // format the current date as a string using the ISO date format
-            val qdate = SimpleDateFormat("yyyy-MM-dd").format(currentDate)
+            Log.d("role", SLD.role)
 
-            val banana_earned = score
-            var Ref =  database.reference.child("Quiz Records").child(uid)
-            var Ref2 = database.reference.child("Users").child(uid)
+            if(SLD.role == "student"){
+                //Updating score to database
+                val database = Firebase.database
+                val uid = (FirebaseAuth.getInstance().currentUser?.uid).toString()
+                val currentDate = Calendar.getInstance().time
 
-            Ref.get().addOnSuccessListener {
-                var index = it.childrenCount.toInt() + 1
-                Ref.child(index.toString()).child("Banana_Earned").setValue(banana_earned)
-                Ref.child(index.toString()).child("Qdate").setValue(qdate)
-                Ref.child(index.toString()).child("Subject").setValue(selectedSubject)
-            }
+                // format the current date as a string using the ISO date format
+                val qdate = SimpleDateFormat("yyyy-MM-dd").format(currentDate)
 
-            Ref2.child("Total_Banana_Earned").get().addOnSuccessListener {
-                var total = it.value.toString().toInt() + banana_earned
-                Ref2.child("Total_Banana_Earned").setValue(total)
-            }
+                val banana_earned = score
+                var Ref =  database.reference.child("Quiz Records").child(uid)
+                var Ref2 = database.reference.child("Users").child(uid)
 
-            // handler to delay the transition to the results page by 3 seconds
-            val handler = Handler(Looper.getMainLooper())
-            handler.postDelayed({
-                val intent = Intent(this, results::class.java)
-                intent.putExtra("score", score)
-                intent.putExtra("totalQuestion", SubjectQuestion.size)
-                startActivity(intent)
+                Ref.get().addOnSuccessListener {
+                    var index = it.childrenCount.toInt() + 1
+                    Ref.child(index.toString()).child("Banana_Earned").setValue(banana_earned)
+                    Ref.child(index.toString()).child("Qdate").setValue(qdate)
+                    Ref.child(index.toString()).child("Subject").setValue(selectedSubject)
+                }
+
+                Ref2.child("Total_Banana_Earned").get().addOnSuccessListener {
+                    var total = it.value.toString().toInt() + banana_earned
+                    Ref2.child("Total_Banana_Earned").setValue(total)
+                }
+
+                // handler to delay the transition to the results page by 3 seconds
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    val intent = Intent(this, results::class.java)
+                    intent.putExtra("score", score)
+                    intent.putExtra("totalQuestion", SubjectQuestion.size)
+                    startActivity(intent)
+                    finish()
+                }, 3000)
+            }else{
                 finish()
-            }, 3000)
+            }
+
         }
     }
 

@@ -85,6 +85,7 @@
         android:id="@+id/edu_title4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
         android:fontFamily="@font/nice_sugar"
         android:text="Admin\nDashboard"
         android:textAlignment="center"
@@ -99,6 +100,7 @@
         android:id="@+id/linearLayout18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -196,57 +198,5 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <!--Shortcuts To Quiz Page-->
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <!--Shortcuts To Ranking Page-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:id="@+id/buttonRank"
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:background="#A4DDF6"
-                    android:contentDescription="Rank"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="50dp"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/rankingicon" />
-
-                <TextView
-                    android:id="@+id/txtRank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:text="Rank"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

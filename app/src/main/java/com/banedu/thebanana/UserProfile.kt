@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,10 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     lateinit var btn_logout: Button
     lateinit var btn_return: ImageButton
     lateinit var btn_profile_picture: ImageButton
+
+    lateinit var txtTotalTopic: TextView
+
+    lateinit var table1: TableLayout
 
     //TODO:TEST YO
     lateinit var userRecordRV: RecyclerView
@@ -74,6 +79,10 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
         btn_logout = findViewById(R.id.btn_logout)
         btn_return = findViewById(R.id.btn_return)
         btn_profile_picture = findViewById(R.id.btn_profile_picture)
+
+        table1 = findViewById(R.id.table1)
+
+        txtTotalTopic = findViewById(R.id.txtTotalTopic)
 
         //endregion
 
@@ -157,9 +166,50 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
         userRecordRV = findViewById(R.id.idRVRecord)
         userRecord = ArrayList()
 
-        userRecordRV.layoutManager= LinearLayoutManager(this)
-        userRecordRVAdapter = UserRecordRvAdapter(userRecord)
-        userRecordRV.adapter = userRecordRVAdapter
+        if(SLD.role == "student"){
+
+            txtTotalTopic.visibility = View.GONE
+
+            userRecordRV.layoutManager= LinearLayoutManager(this)
+            userRecordRVAdapter = UserRecordRvAdapter(userRecord)
+            userRecordRV.adapter = userRecordRVAdapter
+
+            database.reference.get().addOnSuccessListener {
+                var index = 1
+
+                for(result in it.child("Quiz Records").child(uid).children){
+                    var resultIndex = index
+
+                    var date = result.child("Qdate").value.toString()
+
+                    var subjectTitle = ""
+
+                    for(authorUID in it.child("Topic").children){
+                        for(topicID in authorUID.children){
+                            if (result.child("Subject").value.toString() == topicID.key.toString()){
+                                subjectTitle = topicID.child("TopicName").value.toString()
+                                break
+                            }
+                        }
+                    }
+
+                    var banana = result.child("Banana_Earned").value.toString().toInt()
+
+                    index++
+                    userRecord.add(UserRecordFormat(resultIndex, subjectTitle, date, banana))
+                }
+
+                userRecordRVAdapter.notifyDataSetChanged()
+            }
+        }else{
+            table1.setVisibility(View.GONE);
+
+            database.reference.child("Topic").child(auth.uid.toString()).get().addOnSuccessListener {
+                txtTotalTopic.text = "Total topic: ${it.childrenCount.toString()}"
+            }
+        }
+
+
         //TEST SUBJECT
 //        myRef.child("2").child("Qdate").setValue("2023-03-27")
 //        myRef.child("2").child("Subject").setValue("Science")
@@ -186,34 +236,6 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
 //                Log.w("TAG", "Failed to read value.", error.toException())
 //            }
 //        })
-
-        database.reference.get().addOnSuccessListener {
-            var index = 1
-
-            for(result in it.child("Quiz Records").child(uid).children){
-                var resultIndex = index
-
-                var date = result.child("Qdate").value.toString()
-
-                var subjectTitle = ""
-
-                for(authorUID in it.child("Topic").children){
-                    for(topicID in authorUID.children){
-                        if (result.child("Subject").value.toString() == topicID.key.toString()){
-                            subjectTitle = topicID.child("TopicName").value.toString()
-                            break
-                        }
-                    }
-                }
-
-                var banana = result.child("Banana_Earned").value.toString().toInt()
-
-                index++
-                userRecord.add(UserRecordFormat(resultIndex, subjectTitle, date, banana))
-            }
-
-            userRecordRVAdapter.notifyDataSetChanged()
-        }
     }
 
     override fun onImageUploaded(uri: Uri) {
