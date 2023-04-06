@@ -76,7 +76,7 @@
     <LinearLayout
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="450dp"
         android:orientation="vertical"
         android:paddingLeft="50dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -19,6 +19,13 @@ class results : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
 
+        //region Hide toolbar
+
+        val HSB = HideSystemBar()
+        HSB.hide(window)
+
+        //endregion
+
         scoreLabel = findViewById(R.id.scoreLabel)
         scoreValue = findViewById(R.id.scoreValue)
         btnBackHomeFromRes = findViewById(R.id.btnBackHomeFromRes)
@@ -43,16 +50,17 @@ class results : AppCompatActivity() {
         //Get score from Quiz page
         // "0" is the default value if the key is not found in the Intent
         val score = intent.getIntExtra("score", 0)
+        val totalQuestion = intent.getIntExtra("totalQuestion", 0)
 
         //Set text for scoreValue to be score/10
-        scoreValue.text = "$score/10"
+        scoreValue.text = "$score / $totalQuestion"
 
         //Set remarks on users performance
-        if (score >= 10) {
+        if (score == totalQuestion) {
             remarkstextView.text = "Congratulations!! You're doing great!!!"
-        } else if (score >= 7) {
+        } else if (score >= totalQuestion * .7) {
             remarkstextView.text = "You did great!!, be careful next time and you might get them all right."
-        } else if (score >= 4) {
+        } else if (score >= totalQuestion * .4) {
             remarkstextView.text = "Try harder next time..."
         } else {
             remarkstextView.text = "You should study your textbook more..."

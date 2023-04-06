@@ -11,7 +11,6 @@ import android.widget.Toast
 
 class EditQuestion : AppCompatActivity() {
     lateinit var btnDoneEditQuestion: ImageButton
-    lateinit var btn_return: ImageButton
 
     lateinit var edtQuestion: EditText
     lateinit var edtCorrectAnswer: EditText
@@ -22,7 +21,13 @@ class EditQuestion : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_question)
 
-        btn_return = findViewById(R.id.btn_return)
+        //region Hide toolbar
+
+        val HSB = HideSystemBar()
+        HSB.hide(window)
+
+        //endregion
+
         btnDoneEditQuestion = findViewById(R.id.btnDoneEditQuestion)
         edtQuestion = findViewById(R.id.edtQuestion)
         edtCorrectAnswer = findViewById(R.id.edtCorrectAnswer)
@@ -37,10 +42,6 @@ class EditQuestion : AppCompatActivity() {
             edtCorrectAnswer.setText(questionRecord.correctAns)
             edtWrongAnswer1.setText(questionRecord.wrongAns1)
             edtWrongAnswer2.setText(questionRecord.wrongAns2)
-        }
-
-        btn_return.setOnClickListener{
-            finish()
         }
 
         btnDoneEditQuestion.setOnClickListener{

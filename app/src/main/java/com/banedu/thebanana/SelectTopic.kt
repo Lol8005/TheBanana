@@ -33,6 +33,13 @@ class SelectTopic : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_topic)
 
+        //region Hide toolbar
+
+        val HSB = HideSystemBar()
+        HSB.hide(window)
+
+        //endregion
+
         topicCV = findViewById(R.id.topicCV)
         topicCV.layoutManager= LinearLayoutManager(this)
         topicRecordRVAdapter = TopicRecordRVAdapter(topicRecord)

@@ -164,26 +164,56 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
 //        myRef.child("2").child("Qdate").setValue("2023-03-27")
 //        myRef.child("2").child("Subject").setValue("Science")
 //        myRef.child("2").child("Banana_Earned").setValue(9)
-        myRef.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var x=1
-                if(snapshot.exists()) {
-                    for(y in snapshot.children) {
-                        var value0 = x
-                        var value1 = snapshot.child(x.toString()).child("Qdate").value.toString()
-                        var value2 = snapshot.child(x.toString()).child("Subject").value.toString()
-                        var value3 = snapshot.child(x.toString()).child("Banana_Earned").value.toString().toInt()
-                        x++
-                        userRecord.add(UserRecordFormat(value0, value2,value1,value3))
-                    }
-                    userRecordRVAdapter.notifyDataSetChanged()
+//        myRef.addListenerForSingleValueEvent(object: ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                var x=1
+//                if(snapshot.exists()) {
+//                    for(y in snapshot.children) {
+//                        var value0 = x
+//                        var value1 = snapshot.child(x.toString()).child("Qdate").value.toString()
+//
+//                        var value2 = snapshot.child(x.toString()).child("Subject").value.toString()
+//
+//                        var value3 = snapshot.child(x.toString()).child("Banana_Earned").value.toString().toInt()
+//                        x++
+//                        userRecord.add(UserRecordFormat(value0, value2,value1,value3))
+//                    }
+//                    userRecordRVAdapter.notifyDataSetChanged()
+//
+//                }
+//            }
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.w("TAG", "Failed to read value.", error.toException())
+//            }
+//        })
 
+        database.reference.get().addOnSuccessListener {
+            var index = 1
+
+            for(result in it.child("Quiz Records").child(uid).children){
+                var resultIndex = index
+
+                var date = result.child("Qdate").value.toString()
+
+                var subjectTitle = ""
+
+                for(authorUID in it.child("Topic").children){
+                    for(topicID in authorUID.children){
+                        if (result.child("Subject").value.toString() == topicID.key.toString()){
+                            subjectTitle = topicID.child("TopicName").value.toString()
+                            break
+                        }
+                    }
                 }
+
+                var banana = result.child("Banana_Earned").value.toString().toInt()
+
+                index++
+                userRecord.add(UserRecordFormat(resultIndex, subjectTitle, date, banana))
             }
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("TAG", "Failed to read value.", error.toException())
-            }
-        })
+
+            userRecordRVAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onImageUploaded(uri: Uri) {
