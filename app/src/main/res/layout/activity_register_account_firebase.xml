@@ -12,10 +12,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
         android:background="#00FFFFFF"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/logo" />
 
         <LinearLayout
             android:id="@+id/linearLayout16"
@@ -75,8 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textEmailAddress"
-                android:hint="Enter your email"/>
+                android:hint="Enter your email"
+                android:inputType="textEmailAddress" />
         </LinearLayout>
 
         <LinearLayout
@@ -207,7 +214,7 @@
                 android:paddingTop="19dp"
                 android:paddingBottom="12dp"
                 android:text="Have an account?"
-                android:textColor="@color/black"
+                android:textColor="#FF2978FF"
                 android:textSize="15sp"
                 app:cornerRadius="15dp" />
 
@@ -225,7 +232,7 @@
         android:paddingTop="19dp"
         android:paddingBottom="12dp"
         android:text="Student"
-        android:textColor="@color/black"
+        android:textColor="#FF2978FF"
         android:textSize="15sp"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
