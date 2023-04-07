@@ -1,13 +1,19 @@
 package com.banedu.thebanana
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,10 +21,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -34,9 +37,12 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     lateinit var btn_return: ImageButton
     lateinit var btn_profile_picture: ImageButton
 
+    lateinit var adminProfile: LinearLayout
     lateinit var txtTotalTopic: TextView
+    lateinit var txtTotalQuestion: TextView
+    lateinit var btn_generate_code: Button
 
-    lateinit var table1: TableLayout
+    lateinit var TableUserResult: TableLayout
 
     //TODO:TEST YO
     lateinit var userRecordRV: RecyclerView
@@ -47,8 +53,6 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
     private var auth: FirebaseAuth=Firebase.auth
     val uid =auth.currentUser?.uid.toString()
     private val fileRetriever = FileRetriever(uid)
-    var database=Firebase.database
-    var myRef=database.reference.child("Quiz Records").child(uid)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,9 +84,12 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
         btn_return = findViewById(R.id.btn_return)
         btn_profile_picture = findViewById(R.id.btn_profile_picture)
 
-        table1 = findViewById(R.id.table1)
+        TableUserResult = findViewById(R.id.TableUserResult)
 
+        adminProfile = findViewById(R.id.adminProfile)
         txtTotalTopic = findViewById(R.id.txtTotalTopic)
+        txtTotalQuestion = findViewById(R.id.txtTotalQuestion)
+        btn_generate_code = findViewById(R.id.btn_generate_code)
 
         //endregion
 
@@ -160,6 +167,49 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
             finish()
         }
 
+        btn_generate_code.setOnClickListener{
+            var code = generateSixDigitCode()
+
+            DB_Reference.child("Activation Code").get().addOnSuccessListener {
+                var codeExist = true
+
+                while (codeExist){
+                    codeExist = false
+
+                    if(it.exists()){
+                        for(codeDB in it.children){
+                            if(codeDB.value.toString() == code){
+                                codeExist = true
+
+                                code = generateSixDigitCode()
+
+                                break
+                            }
+                        }
+                    }
+                }
+
+                //code dont exist, can use
+                DB_Reference.child("Activation Code").push().setValue(code)
+
+                // Create a notification channel
+                val channel = NotificationChannel(code, "Show code", NotificationManager.IMPORTANCE_DEFAULT)
+                val notificationManager = getSystemService(NotificationManager::class.java)
+                notificationManager.createNotificationChannel(channel)
+
+                // Create a notification
+                val notification = NotificationCompat.Builder(this, code)
+                    .setSmallIcon(R.drawable.banana)
+                    .setContentTitle("Activation code")
+                    .setContentText(code)
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .build()
+
+                // Show the notification
+                notificationManager.notify(1, notification)
+            }
+        }
+
         //endregion
 
         //TODO:TEST TEST WKWKWKKWWK
@@ -168,13 +218,13 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
 
         if(SLD.role == "student"){
 
-            txtTotalTopic.visibility = View.GONE
+            adminProfile.visibility = View.GONE
 
             userRecordRV.layoutManager= LinearLayoutManager(this)
             userRecordRVAdapter = UserRecordRvAdapter(userRecord)
             userRecordRV.adapter = userRecordRVAdapter
 
-            database.reference.get().addOnSuccessListener {
+            DB_Reference.get().addOnSuccessListener {
                 var index = 1
 
                 for(result in it.child("Quiz Records").child(uid).children){
@@ -202,40 +252,30 @@ class UserProfile : AppCompatActivity(), FilePicker.ImageUploadListener,
                 userRecordRVAdapter.notifyDataSetChanged()
             }
         }else{
-            table1.setVisibility(View.GONE);
+            TableUserResult.visibility = View.GONE;
 
-            database.reference.child("Topic").child(auth.uid.toString()).get().addOnSuccessListener {
-                txtTotalTopic.text = "Total topic: ${it.childrenCount.toString()}"
+            var totalQuestion = 0
+
+
+            //check this admin statistic
+            DB_Reference.get().addOnSuccessListener {
+                txtTotalTopic.text = "Total topic: ${it.child("Topic").child(auth.uid.toString()).childrenCount}"
+
+                for(topicID in it.child("Topic").child(auth.uid.toString()).children){
+                    totalQuestion += topicID.childrenCount.toInt() - 1
+                }
+
+                txtTotalQuestion.text = "Total question created: $totalQuestion"
+
             }
         }
+    }
 
+    fun generateSixDigitCode(): String{
+        val random = (0..999999).random()
+        val formatted = String.format("%06d", random)
 
-        //TEST SUBJECT
-//        myRef.child("2").child("Qdate").setValue("2023-03-27")
-//        myRef.child("2").child("Subject").setValue("Science")
-//        myRef.child("2").child("Banana_Earned").setValue(9)
-//        myRef.addListenerForSingleValueEvent(object: ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                var x=1
-//                if(snapshot.exists()) {
-//                    for(y in snapshot.children) {
-//                        var value0 = x
-//                        var value1 = snapshot.child(x.toString()).child("Qdate").value.toString()
-//
-//                        var value2 = snapshot.child(x.toString()).child("Subject").value.toString()
-//
-//                        var value3 = snapshot.child(x.toString()).child("Banana_Earned").value.toString().toInt()
-//                        x++
-//                        userRecord.add(UserRecordFormat(value0, value2,value1,value3))
-//                    }
-//                    userRecordRVAdapter.notifyDataSetChanged()
-//
-//                }
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.w("TAG", "Failed to read value.", error.toException())
-//            }
-//        })
+        return formatted
     }
 
     override fun onImageUploaded(uri: Uri) {
