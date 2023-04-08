@@ -65,29 +65,37 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
                 UserRanking.clear()
                 if(snapshot.exists()){
                     for (indexID in snapshot.children){
-                        val thisUserBanana = indexID.child("Total_Banana_Earned").value.toString().toInt()
-                        val thisUsername = indexID.child("username").value.toString()
+                        if(indexID.child("role").value.toString() == "student"){
+                            val thisUserBanana = indexID.child("Total_Banana_Earned").value.toString().toInt()
+                            val thisUsername = indexID.child("username").value.toString()
 
-                        UserRanking.add(UserRankClass(indexID.key.toString(), thisUsername, thisUserBanana))
-                        Log.d("Banana", UserRanking.toString())
+                            UserRanking.add(UserRankClass(indexID.key.toString(), thisUsername, thisUserBanana))
+                            Log.d("Banana", UserRanking.toString())
+                        }
                     }
 
                     // Sort and get top 3
                     val AllUserRanking = UserRanking.sortedByDescending { it.banana }
                     UserRanking = AllUserRanking.take(3) as ArrayList<UserRankClass>
-                    Log.d("TAG", UserRanking.toString())
 
-                    for (i in 0..2){
+                    for (i in 0 until UserRanking.size){
                         fileRetriever = FileRetriever(UserRanking[i].id)
                         fileRetriever.loadImage(this@rank)
                     }
 
-                    txtFplace.text = "${UserRanking[0].username} (${UserRanking[0].banana})"
-                    txtSplace.text = "${UserRanking[1].username} (${UserRanking[1].banana})"
-                    txtTplace.text = "${UserRanking[2].username} (${UserRanking[2].banana})"
+                    if(UserRanking.size >= 1){
+                        txtFplace.text = "${UserRanking[0].username} (${UserRanking[0].banana})"
+                    }
 
+                    if(UserRanking.size >= 2){
+                        txtSplace.text = "${UserRanking[1].username} (${UserRanking[1].banana})"
+                    }
 
-                    for(userIndex in 0..AllUserRanking.size){
+                    if(UserRanking.size == 3){
+                        txtTplace.text = "${UserRanking[2].username} (${UserRanking[2].banana})"
+                    }
+
+                    for(userIndex in AllUserRanking.indices){
                         if(uid == AllUserRanking[userIndex].id){
                             txtYrRank.text = "${userIndex + 1} (${AllUserRanking[userIndex].banana})"
 
