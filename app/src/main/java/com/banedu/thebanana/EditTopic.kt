@@ -34,7 +34,6 @@ class EditTopic : AppCompatActivity(), questionRecordListener  {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var DB_Reference: DatabaseReference
-    //lateinit var topicID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +47,13 @@ class EditTopic : AppCompatActivity(), questionRecordListener  {
 
         auth = Firebase.auth
         DB_Reference = DB_Connection().connectRealDB()
+
+        //region Hide toolbar
+
+        val HSB = HideSystemBar()
+        HSB.hide(window)
+
+        //endregion
 
         val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
