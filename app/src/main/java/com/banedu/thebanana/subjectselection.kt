@@ -1,10 +1,11 @@
 package com.banedu.thebanana
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -44,29 +45,30 @@ class subjectselection : AppCompatActivity() {
 
         subjectRadioRV = findViewById(R.id.subjectRadioRV)
 
-        subjectRadioRV.layoutManager= LinearLayoutManager(this)
+        subjectRadioRV.layoutManager = LinearLayoutManager(this)
         topicSelectionRVAdapter = TopicSelectionRVAdapter(topicRecord)
         subjectRadioRV.adapter = topicSelectionRVAdapter
 
         startquizButton = findViewById(R.id.startquizButton)
         btnBackHomeFromSS = findViewById(R.id.btnBackHomeFromSS)
 
-        DB_Reference.child("Topic").addValueEventListener(object: ValueEventListener {
+        DB_Reference.child("Topic").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 topicRecord.clear()
-                for (uid in snapshot.children){
-                   for(questionID in uid.children){
-                       //check if question exist
-                       if(questionID.child("0").exists()){
-                           topicRecord.add(
-                               TopicRecordFormat(questionID.key.toString(),
-                                   questionID.child("TopicName").value.toString(),
-                                   uid.key.toString()
-                               )
-                           )
-                       }
-                   }
-               }
+                for (uid in snapshot.children) {
+                    for (questionID in uid.children) {
+                        //check if question exist
+                        if (questionID.child("0").exists()) {
+                            topicRecord.add(
+                                TopicRecordFormat(
+                                    questionID.key.toString(),
+                                    questionID.child("TopicName").value.toString(),
+                                    uid.key.toString()
+                                )
+                            )
+                        }
+                    }
+                }
 
                 topicSelectionRVAdapter.notifyDataSetChanged()
             }

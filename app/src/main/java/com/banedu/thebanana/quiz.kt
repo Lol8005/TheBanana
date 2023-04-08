@@ -1,24 +1,22 @@
 package com.banedu.thebanana
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Button
-import android.widget.TextView
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 // A class representing a question with 3 different options.
@@ -80,46 +78,47 @@ class quiz : AppCompatActivity() {
 
         btnBackHomeFromSS = findViewById(R.id.btnBackHomeFromSS)
 
-        DB_Reference.child("Topic").child(selectedSubjectAuthorUID).child(selectedSubject).get().addOnSuccessListener {
-            for (questionIndex in it.children){
-                if(questionIndex.key != "TopicName"){
-                    val _answer = answer(
-                        questionIndex.child("correctAns").value.toString(),
-                        questionIndex.child("wrongAns1").value.toString(),
-                        questionIndex.child("wrongAns2").value.toString()
-                    )
-                    ShuffleAnswerPos(_answer, questionIndex.child("question").value.toString())
+        DB_Reference.child("Topic").child(selectedSubjectAuthorUID).child(selectedSubject).get()
+            .addOnSuccessListener {
+                for (questionIndex in it.children) {
+                    if (questionIndex.key != "TopicName") {
+                        val _answer = answer(
+                            questionIndex.child("correctAns").value.toString(),
+                            questionIndex.child("wrongAns1").value.toString(),
+                            questionIndex.child("wrongAns2").value.toString()
+                        )
+                        ShuffleAnswerPos(_answer, questionIndex.child("question").value.toString())
+                    }
                 }
-            }
 
-            SubjectQuestion = SubjectQuestion.shuffled() as ArrayList<question>
-            updateQuestion()
-        }
+                SubjectQuestion = SubjectQuestion.shuffled() as ArrayList<question>
+                updateQuestion()
+            }
 
         nextquesButton.visibility = View.INVISIBLE
 
-        option1Button.setOnClickListener{
+        option1Button.setOnClickListener {
             checkAnswer(0)
         }
 
-        option2Button.setOnClickListener{
+        option2Button.setOnClickListener {
             checkAnswer(1)
         }
 
-        option3Button.setOnClickListener{
+        option3Button.setOnClickListener {
             checkAnswer(2)
         }
 
-        nextquesButton.setOnClickListener{
+        nextquesButton.setOnClickListener {
             nextQuestion()
         }
 
-        btnBackHomeFromSS.setOnClickListener{
+        btnBackHomeFromSS.setOnClickListener {
             finish()
         }
     }
 
-    fun updateQuestion(){
+    fun updateQuestion() {
         currentquesTextView.text = "Question: ${currentQuestionIndex + 1} / ${SubjectQuestion.size}"
         questionTextView.text = SubjectQuestion[currentQuestionIndex].question
         option1Button.text = SubjectQuestion[currentQuestionIndex].option.option1
@@ -139,45 +138,49 @@ class quiz : AppCompatActivity() {
         option3Button.isClickable = true
     }
 
-    fun checkAnswer(pos: Int){
+    fun checkAnswer(pos: Int) {
         option1Button.isClickable = false
         option2Button.isClickable = false
         option3Button.isClickable = false
 
-        if(pos == SubjectQuestion[currentQuestionIndex].ansPos){
+        if (pos == SubjectQuestion[currentQuestionIndex].ansPos) {
             //correct
             resultTextView.text = "Correct!"
             resultTextView.setTextColor(getColorStateList(android.R.color.holo_green_light))
             score++
 
-            if(pos == 0){
-                option1Button.backgroundTintList = getColorStateList(android.R.color.holo_green_light)
-            }else if(pos == 1){
-                option2Button.backgroundTintList = getColorStateList(android.R.color.holo_green_light)
-            }else{
-                option3Button.backgroundTintList = getColorStateList(android.R.color.holo_green_light)
+            if (pos == 0) {
+                option1Button.backgroundTintList =
+                    getColorStateList(android.R.color.holo_green_light)
+            } else if (pos == 1) {
+                option2Button.backgroundTintList =
+                    getColorStateList(android.R.color.holo_green_light)
+            } else {
+                option3Button.backgroundTintList =
+                    getColorStateList(android.R.color.holo_green_light)
             }
-        }else{
+        } else {
             //wrong
             resultTextView.text = "Incorrect."
             resultTextView.setTextColor(getColorStateList(android.R.color.holo_red_light))
 
-            if(pos == 0){
+            if (pos == 0) {
                 option1Button.backgroundTintList = getColorStateList(android.R.color.holo_red_light)
-            }else if(pos == 1){
+            } else if (pos == 1) {
                 option2Button.backgroundTintList = getColorStateList(android.R.color.holo_red_light)
-            }else{
+            } else {
                 option3Button.backgroundTintList = getColorStateList(android.R.color.holo_red_light)
             }
         }
 
         scoreTextView.text = "Score: $score"
 
-        if(currentQuestionIndex + 1 != SubjectQuestion.size){
+        if (currentQuestionIndex + 1 != SubjectQuestion.size) {
             nextquesButton.visibility = View.VISIBLE
-        }else{
+        } else {
             //end of question
-            resultTextView.text = "Quiz complete! Your final score is $score out of ${SubjectQuestion.size}."
+            resultTextView.text =
+                "Quiz complete! Your final score is $score out of ${SubjectQuestion.size}."
             option1Button.isEnabled = false
             option2Button.isEnabled = false
             option3Button.isEnabled = false
@@ -190,7 +193,7 @@ class quiz : AppCompatActivity() {
 
             Log.d("role", SLD.role)
 
-            if(SLD.role == "student"){
+            if (SLD.role == "student") {
                 //Updating score to database
                 val database = Firebase.database
                 val uid = (FirebaseAuth.getInstance().currentUser?.uid).toString()
@@ -200,7 +203,7 @@ class quiz : AppCompatActivity() {
                 val qdate = SimpleDateFormat("yyyy-MM-dd").format(currentDate)
 
                 val banana_earned = score
-                var Ref =  database.reference.child("Quiz Records").child(uid)
+                var Ref = database.reference.child("Quiz Records").child(uid)
                 var Ref2 = database.reference.child("Users").child(uid)
 
                 Ref.get().addOnSuccessListener {
@@ -224,20 +227,20 @@ class quiz : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }, 3000)
-            }else{
+            } else {
                 finish()
             }
 
         }
     }
 
-    fun nextQuestion(){
+    fun nextQuestion() {
         currentQuestionIndex++
 
         updateQuestion()
     }
 
-    private fun ShuffleAnswerPos(ansList: answer, _question: String){
+    private fun ShuffleAnswerPos(ansList: answer, _question: String) {
         var correctAns = ansList.option1
 
         var _tempList = listOf(
@@ -247,8 +250,8 @@ class quiz : AppCompatActivity() {
         ).shuffled()
 
         var ansPos = 0
-        for(index in 0.._tempList.size - 1){
-            if(_tempList[index] == correctAns){
+        for (index in 0.._tempList.size - 1) {
+            if (_tempList[index] == correctAns) {
                 ansPos = index
                 break
             }
@@ -261,5 +264,5 @@ class quiz : AppCompatActivity() {
     }
 }
 
-private data class answer(var option1: String, var  option2: String, var  option3: String)
+private data class answer(var option1: String, var option2: String, var option3: String)
 private data class question(var question: String, var option: answer, var ansPos: Int)

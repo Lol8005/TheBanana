@@ -1,12 +1,12 @@
 package com.banedu.thebanana
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
 import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -41,7 +41,7 @@ class SelectTopic : AppCompatActivity() {
         //endregion
 
         topicCV = findViewById(R.id.topicCV)
-        topicCV.layoutManager= LinearLayoutManager(this)
+        topicCV.layoutManager = LinearLayoutManager(this)
         topicRecordRVAdapter = TopicRecordRVAdapter(topicRecord)
         topicCV.adapter = topicRecordRVAdapter
 
@@ -51,22 +51,23 @@ class SelectTopic : AppCompatActivity() {
         auth = Firebase.auth
         DB_Reference = DB_Connection().connectRealDB()
 
-        DB_Reference.child("Topic").child(auth.uid.toString()).addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                addTopicRecordsFromFirebase(snapshot)
-            }
+        DB_Reference.child("Topic").child(auth.uid.toString())
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    addTopicRecordsFromFirebase(snapshot)
+                }
 
-            override fun onCancelled(error: DatabaseError) {
+                override fun onCancelled(error: DatabaseError) {
 
-            }
+                }
 
-        })
+            })
 
-        btn_return.setOnClickListener{
+        btn_return.setOnClickListener {
             finish()
         }
 
-        btnAddTopic.setOnClickListener{
+        btnAddTopic.setOnClickListener {
             startActivity(Intent(this, EditTopic::class.java))
         }
     }
@@ -75,9 +76,13 @@ class SelectTopic : AppCompatActivity() {
         topicRecord.clear()
         Log.d("record", snapshot.value.toString())
 
-        for (index in snapshot.children){
+        for (index in snapshot.children) {
             Log.d("index", index.value.toString())
-            var newRecord = TopicRecordFormat(index.key.toString(), index.child("TopicName").value.toString(), auth.uid.toString())
+            var newRecord = TopicRecordFormat(
+                index.key.toString(),
+                index.child("TopicName").value.toString(),
+                auth.uid.toString()
+            )
 
             topicRecord.add(newRecord)
 
@@ -86,11 +91,12 @@ class SelectTopic : AppCompatActivity() {
     }
 }
 
-data class TopicRecordFormat(var topicID: String, var topicName: String, var authorUID: String): Parcelable {
+data class TopicRecordFormat(var topicID: String, var topicName: String, var authorUID: String) :
+    Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: ""
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

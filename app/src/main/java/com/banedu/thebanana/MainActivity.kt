@@ -63,44 +63,44 @@ class MainActivity : AppCompatActivity() {
         //endregion
 
         //set role text
-        if(SLD.role == "admin"){
+        if (SLD.role == "admin") {
             txtRole.text = "Admin"
-        }else{
+        } else {
             txtRole.text = "Student"
         }
 
         //region Button On Click Listener
 
-        btn_play.setOnClickListener{
+        btn_play.setOnClickListener {
             clickbuttonSFX.start()
 
             //go to base on role
-            if(SLD.role == "admin"){
+            if (SLD.role == "admin") {
                 //go to admin dashboard
                 startActivity(Intent(this, AdminDashboard::class.java))
                 overridePendingTransition(0, 0) //Remove transition animation
-            }else{
+            } else {
                 //go to student dashboard
                 startActivity(Intent(this, index::class.java))
                 overridePendingTransition(0, 0) //Remove transition animation
             }
         }
 
-        btn_setting.setOnClickListener{
+        btn_setting.setOnClickListener {
             clickbuttonSFX.start()
 
             startActivity(Intent(this, Setting::class.java))
             overridePendingTransition(0, 0) //Remove transition animation
         }
 
-        btn_profile.setOnClickListener{
+        btn_profile.setOnClickListener {
             clickbuttonSFX.start()
 
             startActivity(Intent(this, UserProfile::class.java))
             overridePendingTransition(0, 0) //Remove transition animation
         }
 
-        btn_exit.setOnClickListener{
+        btn_exit.setOnClickListener {
             clickbuttonSFX.start()
 
             finish()
@@ -114,14 +114,14 @@ class MainActivity : AppCompatActivity() {
 
         SLD.LoadData(this)
 
-        if(SLD.role == "admin"){
+        if (SLD.role == "admin") {
             txtRole.text = "Admin"
-        }else{
+        } else {
             txtRole.text = "Student"
         }
     }
 
-    fun checkPlayerLogin(){
+    fun checkPlayerLogin() {
         startActivity(Intent(this, LoginAccountFirebase::class.java))
         overridePendingTransition(0, 0) //Remove transition animation
     }

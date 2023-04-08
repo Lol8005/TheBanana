@@ -1,14 +1,13 @@
 package com.banedu.thebanana
 
-import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -63,13 +62,20 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
         RefRank.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 UserRanking.clear()
-                if(snapshot.exists()){
-                    for (indexID in snapshot.children){
-                        if(indexID.child("role").value.toString() == "student"){
-                            val thisUserBanana = indexID.child("Total_Banana_Earned").value.toString().toInt()
+                if (snapshot.exists()) {
+                    for (indexID in snapshot.children) {
+                        if (indexID.child("role").value.toString() == "student") {
+                            val thisUserBanana =
+                                indexID.child("Total_Banana_Earned").value.toString().toInt()
                             val thisUsername = indexID.child("username").value.toString()
 
-                            UserRanking.add(UserRankClass(indexID.key.toString(), thisUsername, thisUserBanana))
+                            UserRanking.add(
+                                UserRankClass(
+                                    indexID.key.toString(),
+                                    thisUsername,
+                                    thisUserBanana
+                                )
+                            )
                             Log.d("Banana", UserRanking.toString())
                         }
                     }
@@ -78,26 +84,27 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
                     val AllUserRanking = UserRanking.sortedByDescending { it.banana }
                     UserRanking = AllUserRanking.take(3) as ArrayList<UserRankClass>
 
-                    for (i in 0 until UserRanking.size){
+                    for (i in 0 until UserRanking.size) {
                         fileRetriever = FileRetriever(UserRanking[i].id)
                         fileRetriever.loadImage(this@rank)
                     }
 
-                    if(UserRanking.size >= 1){
+                    if (UserRanking.size >= 1) {
                         txtFplace.text = "${UserRanking[0].username} (${UserRanking[0].banana})"
                     }
 
-                    if(UserRanking.size >= 2){
+                    if (UserRanking.size >= 2) {
                         txtSplace.text = "${UserRanking[1].username} (${UserRanking[1].banana})"
                     }
 
-                    if(UserRanking.size == 3){
+                    if (UserRanking.size == 3) {
                         txtTplace.text = "${UserRanking[2].username} (${UserRanking[2].banana})"
                     }
 
-                    for(userIndex in AllUserRanking.indices){
-                        if(uid == AllUserRanking[userIndex].id){
-                            txtYrRank.text = "${userIndex + 1} (${AllUserRanking[userIndex].banana})"
+                    for (userIndex in AllUserRanking.indices) {
+                        if (uid == AllUserRanking[userIndex].id) {
+                            txtYrRank.text =
+                                "${userIndex + 1} (${AllUserRanking[userIndex].banana})"
 
                             break
                         }
@@ -117,19 +124,22 @@ class rank : AppCompatActivity(), FileRetriever.ImageDownloadListener {
 
     override fun onImageDownloaded(uri: Uri?) {
         // Do something with the downloaded URI
-        if(uri != null){
+        if (uri != null) {
             Glide.with(applicationContext)
                 .load(uri)
                 .into(object : CustomTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
                         // Set the Drawable to an ImageView or any other view that accepts a Drawable
                         val fileName = uri.path?.split("/")?.last().toString()
 
-                        if(fileName == UserRanking[0].id){
+                        if (fileName == UserRanking[0].id) {
                             imgVwFirst.setImageDrawable(resource)
-                        }else if(fileName == UserRanking[1].id){
+                        } else if (fileName == UserRanking[1].id) {
                             imgVwSecond.setImageDrawable(resource)
-                        }else{
+                        } else {
                             imgVwThird.setImageDrawable(resource)
                         }
                     }

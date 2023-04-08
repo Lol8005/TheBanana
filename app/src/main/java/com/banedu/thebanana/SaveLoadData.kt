@@ -16,8 +16,9 @@ class SaveLoadData {
     var volume: Int = 0
     var music: Int = 0
 
-    fun LoadData(activity: Context){
-        var sharedPreferences:SharedPreferences = activity.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+    fun LoadData(activity: Context) {
+        var sharedPreferences: SharedPreferences =
+            activity.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
 
         username = sharedPreferences.getString("username", "").toString()
         email = sharedPreferences.getString("email", "").toString()
@@ -29,8 +30,9 @@ class SaveLoadData {
         music = sharedPreferences.getInt("music", 100)
     }
 
-    fun SaveData(activity: Context){
-        var sharedPreferences:SharedPreferences = activity.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+    fun SaveData(activity: Context) {
+        var sharedPreferences: SharedPreferences =
+            activity.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         var editor: SharedPreferences.Editor = sharedPreferences.edit()
 
         editor.putString("username", username)

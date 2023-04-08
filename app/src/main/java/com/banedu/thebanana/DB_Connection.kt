@@ -20,14 +20,14 @@ class DB_Connection {
 
     var StorageDB_path = "gs://thebanana-537eb.appspot.com"
 
-    fun connectRealDB(): DatabaseReference{
+    fun connectRealDB(): DatabaseReference {
         firebaseRealDB = Firebase.database(RealDB_path)
         RealDB_Reference = firebaseRealDB.reference
 
         return RealDB_Reference
     }
 
-    fun connectStorageDB(): StorageReference{
+    fun connectStorageDB(): StorageReference {
         firebaseStorageDB = FirebaseStorage.getInstance(StorageDB_path)
         StorageDB_Reference = firebaseStorageDB.reference
 

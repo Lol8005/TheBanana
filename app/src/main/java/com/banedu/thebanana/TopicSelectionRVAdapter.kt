@@ -1,22 +1,15 @@
 package com.banedu.thebanana
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.RadioButton
-import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 
 class TopicSelectionRVAdapter(
     private val topicRecord: ArrayList<TopicRecordFormat>
-) : RecyclerView.Adapter<TopicSelectionRVAdapter.ViewHolder>(){
+) : RecyclerView.Adapter<TopicSelectionRVAdapter.ViewHolder>() {
 
     var selectedPosition = -1
 
@@ -29,7 +22,7 @@ class TopicSelectionRVAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(topicRecord.size > 0){
+        if (topicRecord.size > 0) {
             holder.topicRadio.text = topicRecord[holder.adapterPosition].topicName
             holder.topicRadio.id = topicRecord[holder.adapterPosition].topicID.hashCode()
         }
@@ -58,17 +51,17 @@ class TopicSelectionRVAdapter(
     }
 
     fun getSelectedItemId(): String {
-        if (selectedPosition != -1){
+        if (selectedPosition != -1) {
             return topicRecord[selectedPosition].topicID
-        }else{
+        } else {
             return ""
         }
     }
 
     fun getSelectedItemAuthor(): String {
-        if (selectedPosition != -1){
+        if (selectedPosition != -1) {
             return topicRecord[selectedPosition].authorUID
-        }else{
+        } else {
             return ""
         }
     }

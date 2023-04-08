@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
 
 class Setting : AppCompatActivity() {
 
@@ -73,10 +73,10 @@ class Setting : AppCompatActivity() {
 
         //endregion
 
-        btn_volume.setOnClickListener{
-            if(seekBar_volume.progress == 0){
+        btn_volume.setOnClickListener {
+            if (seekBar_volume.progress == 0) {
                 seekBar_volume.progress = 100
-            }else{
+            } else {
                 seekBar_volume.progress = 0
             }
 
@@ -87,7 +87,7 @@ class Setting : AppCompatActivity() {
             updateViewsAfterLoadData()
         }
 
-        seekBar_volume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        seekBar_volume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 updateViewsAfterLoadData()
 
@@ -110,10 +110,10 @@ class Setting : AppCompatActivity() {
             }
         })
 
-        btn_music.setOnClickListener{
-            if(seekBar_music.progress == 0){
+        btn_music.setOnClickListener {
+            if (seekBar_music.progress == 0) {
                 seekBar_music.progress = 100
-            }else{
+            } else {
                 seekBar_music.progress = 0
             }
 
@@ -124,7 +124,7 @@ class Setting : AppCompatActivity() {
             updateViewsAfterLoadData()
         }
 
-        seekBar_music.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+        seekBar_music.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 updateViewsAfterLoadData()
 
@@ -147,7 +147,7 @@ class Setting : AppCompatActivity() {
             }
         })
 
-        btn_close_setting.setOnClickListener{
+        btn_close_setting.setOnClickListener {
 
             clickbuttonSFX.start()
 
@@ -156,16 +156,16 @@ class Setting : AppCompatActivity() {
         }
     }
 
-    fun updateViewsAfterLoadData(){
-        if(seekBar_volume.progress == 0){
+    fun updateViewsAfterLoadData() {
+        if (seekBar_volume.progress == 0) {
             btn_volume.setImageResource(R.drawable.volumedisableicon)
-        }else{
+        } else {
             btn_volume.setImageResource(R.drawable.volumeicon)
         }
 
-        if(seekBar_music.progress == 0){
+        if (seekBar_music.progress == 0) {
             btn_music.setImageResource(R.drawable.musicdisableicon)
-        }else{
+        } else {
             btn_music.setImageResource(R.drawable.musicicon)
         }
     }

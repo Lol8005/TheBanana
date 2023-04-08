@@ -1,10 +1,10 @@
 package com.banedu.thebanana
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class results : AppCompatActivity() {
 
@@ -36,10 +36,10 @@ class results : AppCompatActivity() {
 
         //Setup Back Button
         btnBackHomeFromRes.setOnClickListener {
-            if(SLD.role == "student"){
+            if (SLD.role == "student") {
                 val intent = Intent(this, index::class.java)
                 startActivity(intent)
-            }else{
+            } else {
                 val intent = Intent(this, AdminDashboard::class.java)
                 startActivity(intent)
             }
@@ -59,7 +59,8 @@ class results : AppCompatActivity() {
         if (score == totalQuestion) {
             remarkstextView.text = "Congratulations!! You're doing great!!!"
         } else if (score >= totalQuestion * .7) {
-            remarkstextView.text = "You did great!!, be careful next time and you might get them all right."
+            remarkstextView.text =
+                "You did great!!, be careful next time and you might get them all right."
         } else if (score >= totalQuestion * .4) {
             remarkstextView.text = "Try harder next time..."
         } else {

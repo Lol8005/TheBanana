@@ -14,7 +14,7 @@ class QuestionRecordRVAdapter(
     private val questionRecord: ArrayList<QuestionRecordFormat>,
     private val listener: questionRecordListener,
     private val resultLauncher: ActivityResultLauncher<Intent>
-    ) : RecyclerView.Adapter<QuestionRecordRVAdapter.ViewHolder>(){
+) : RecyclerView.Adapter<QuestionRecordRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -25,7 +25,7 @@ class QuestionRecordRVAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if((questionRecord != null) and (questionRecord.size>0)){
+        if ((questionRecord != null) and (questionRecord.size > 0)) {
             holder.question.text = (questionRecord.get(position).question)
         }
 

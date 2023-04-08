@@ -79,7 +79,7 @@
 
         <TextView
             android:id="@+id/remarkstextView"
-            android:layout_width="169dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nice_sugar"
             android:textColor="@android:color/holo_red_dark"

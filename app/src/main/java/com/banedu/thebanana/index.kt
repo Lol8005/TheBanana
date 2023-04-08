@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
+class index : AppCompatActivity(), FileRetriever.ImageDownloadListener {
 
     //TODO: Added File Retriever
     lateinit var imgBtnPfp: ImageButton
@@ -34,10 +34,10 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
     lateinit var buttonRank: ImageButton
     lateinit var buttonFlashCards: ImageButton
     lateinit var buttonStudyTimer: ImageButton
-    private var auth: FirebaseAuth=Firebase.auth
-    val uid =auth.currentUser?.uid.toString()
+    private var auth: FirebaseAuth = Firebase.auth
+    val uid = auth.currentUser?.uid.toString()
     private val fileRetriever = FileRetriever(uid)
-    val database= Firebase.database
+    val database = Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +45,14 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
 
         fileRetriever.loadImage(this)
 
-        imgBtnPfp=findViewById(R.id.imgBtnPfp)
-        txtUserName=findViewById(R.id.txtUserName)
-        txtBananaCount=findViewById(R.id.txtBananaCount)
-        imgBtnSettings=findViewById(R.id.imgBtnSettings)
-        buttonQuiz=findViewById(R.id.buttonQuiz)
-        buttonRank=findViewById(R.id.buttonRank)
-        buttonFlashCards=findViewById(R.id.btnViewResult)
-        buttonStudyTimer=findViewById(R.id.btnEditQuestion)
+        imgBtnPfp = findViewById(R.id.imgBtnPfp)
+        txtUserName = findViewById(R.id.txtUserName)
+        txtBananaCount = findViewById(R.id.txtBananaCount)
+        imgBtnSettings = findViewById(R.id.imgBtnSettings)
+        buttonQuiz = findViewById(R.id.buttonQuiz)
+        buttonRank = findViewById(R.id.buttonRank)
+        buttonFlashCards = findViewById(R.id.btnViewResult)
+        buttonStudyTimer = findViewById(R.id.btnEditQuestion)
 
         val SLD = SaveLoadData()
         SLD.LoadData(this)
@@ -80,9 +80,9 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
         //Get the username & total banana earned from database and render it.
         //Show UserName & total banana earned
         val RenderHomePage = database.getReference("Users").child(uid)
-        RenderHomePage.addValueEventListener(object: ValueEventListener {
+        RenderHomePage.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
+                if (snapshot.exists()) {
                     var banana = snapshot.child("Total_Banana_Earned").value.toString()
                     //To check got receive the data or not -> check log cat
                     Log.d("Retrieve data", banana)
@@ -114,7 +114,7 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
 
         //Shortcuts To Ranking Page
         buttonRank.setOnClickListener {
-            val intent = Intent(this,rank::class.java)
+            val intent = Intent(this, rank::class.java)
             startActivity(intent)
         }
 
@@ -126,27 +126,32 @@ class index : AppCompatActivity(), FileRetriever.ImageDownloadListener{
 
         //Shortcuts To Study Timer Page
         buttonStudyTimer.setOnClickListener {
-            val intent = Intent(this,studyTimer::class.java)
+            val intent = Intent(this, studyTimer::class.java)
 
-            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP
+            intent.flags =
+                Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP
 
             startActivity(intent)
         }
 
-        imgBtnPfp.setOnClickListener{
+        imgBtnPfp.setOnClickListener {
             startActivity(Intent(this, UserProfile::class.java))
             overridePendingTransition(0, 0) //Remove transition animation
         }
     }
+
     override fun onImageDownloaded(uri: Uri?) {
         // Do something with the downloaded URI
-        if(uri != null){
+        if (uri != null) {
             Log.d("URI", uri.toString())
 
             Glide.with(this)
                 .load(uri)
                 .into(object : CustomTarget<Drawable>() {
-                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        transition: Transition<in Drawable>?
+                    ) {
                         // Set the Drawable to an ImageView or any other view that accepts a Drawable
                         imgBtnPfp.setImageDrawable(resource)
                     }

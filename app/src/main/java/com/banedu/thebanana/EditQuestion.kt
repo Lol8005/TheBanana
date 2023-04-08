@@ -2,12 +2,11 @@ package com.banedu.thebanana
 
 import android.app.Activity
 import android.content.Intent
-import android.media.Image
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class EditQuestion : AppCompatActivity() {
     lateinit var btnDoneEditQuestion: ImageButton
@@ -37,18 +36,18 @@ class EditQuestion : AppCompatActivity() {
         val resultIntent = Intent()
 
         val questionRecord = intent.getParcelableExtra<QuestionRecordFormat>("questionRecord")
-        if (questionRecord != null){
+        if (questionRecord != null) {
             edtQuestion.setText(questionRecord.question)
             edtCorrectAnswer.setText(questionRecord.correctAns)
             edtWrongAnswer1.setText(questionRecord.wrongAns1)
             edtWrongAnswer2.setText(questionRecord.wrongAns2)
         }
 
-        btnDoneEditQuestion.setOnClickListener{
-            if(edtQuestion.text.isEmpty() or edtCorrectAnswer.text.isEmpty() or edtWrongAnswer1.text.isEmpty() or edtWrongAnswer2.text.isEmpty()
-            ){
+        btnDoneEditQuestion.setOnClickListener {
+            if (edtQuestion.text.isEmpty() or edtCorrectAnswer.text.isEmpty() or edtWrongAnswer1.text.isEmpty() or edtWrongAnswer2.text.isEmpty()
+            ) {
                 Toast.makeText(this, "Please fill in all the text field", Toast.LENGTH_LONG).show()
-            }else{
+            } else {
                 val questionRecord = QuestionRecordFormat(
                     edtQuestion.text.toString(),
                     edtCorrectAnswer.text.toString(),

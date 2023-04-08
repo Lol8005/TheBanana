@@ -7,12 +7,11 @@ import android.content.IntentFilter
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -43,7 +42,7 @@ class AdminDashboard : AppCompatActivity(), FileRetriever.ImageDownloadListener 
         txtUserName = findViewById(R.id.txtUserName)
         imgBtnSettings = findViewById(R.id.imgBtnSettings)
         btnEditQuestion = findViewById(R.id.btnEditQuestion)
-        buttonQuiz=findViewById(R.id.buttonQuiz)
+        buttonQuiz = findViewById(R.id.buttonQuiz)
 
         val SLD = SaveLoadData()
         SLD.LoadData(this)
@@ -85,7 +84,7 @@ class AdminDashboard : AppCompatActivity(), FileRetriever.ImageDownloadListener 
             startActivity(intent)
         }
 
-        buttonQuiz.setOnClickListener{
+        buttonQuiz.setOnClickListener {
             val intent = Intent(this, subjectselection::class.java)
             startActivity(intent)
         }

@@ -2,19 +2,13 @@ package com.banedu.thebanana
 
 import android.net.Uri
 import android.util.Log
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageException
-import java.net.HttpURLConnection
-import java.net.URL
 
-class FileRetriever(private var uid:String) {
+class FileRetriever(private var uid: String) {
     interface ImageDownloadListener {
         fun onImageDownloaded(uri: Uri?)
     }
 
-    fun loadImage(listener: ImageDownloadListener){
+    fun loadImage(listener: ImageDownloadListener) {
         val storageRef = DB_Connection().connectStorageDB()
         val imagesRef = storageRef.child("images")
 

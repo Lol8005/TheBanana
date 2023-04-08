@@ -4,14 +4,14 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.widget.*
 import android.graphics.Color
 import android.media.MediaPlayer
+import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.util.Log
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -19,7 +19,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Runnable
 import nl.dionsegijn.konfetti.core.Party
@@ -29,7 +28,6 @@ import nl.dionsegijn.konfetti.xml.KonfettiView
 import java.time.LocalDate
 import java.time.Period
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 class studyTimer : AppCompatActivity() {
 
@@ -112,7 +110,8 @@ class studyTimer : AppCompatActivity() {
         DB_Reference = DB_Connection().connectRealDB()
 
         val uid = auth.currentUser?.uid.toString()
-        var databaseRefTimeNow = Firebase.database.getReference("Study Time Record").child(uid).child(current.toString())
+        var databaseRefTimeNow =
+            Firebase.database.getReference("Study Time Record").child(uid).child(current.toString())
 
         //endregion
 
@@ -124,14 +123,14 @@ class studyTimer : AppCompatActivity() {
         //endregion
 
         //region set music
-         //Define first music track
+        //Define first music track
         txtMusicTitle.text = musicArray[0].title
         mediaplayer = MediaPlayer.create(this, musicArray[0].music)
         mediaplayer.setVolume(SLD.music.toFloat(), SLD.music.toFloat())
         imgMusicCover.setImageResource(musicArray[0].image)
         seekbar.progress = 0
         seekbar.max = mediaplayer.duration
-         //modify volume
+        //modify volume
         val intentFilter = IntentFilter("com.banedu.thebanana.MUSIC_CHANGED")
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
@@ -167,7 +166,7 @@ class studyTimer : AppCompatActivity() {
                 edtHours.isFocusableInTouchMode = true
                 edtMinutes.isFocusableInTouchMode = true
                 edtSeconds.isFocusableInTouchMode = true
-            }else if(getInputTime() == 0) {
+            } else if (getInputTime() == 0) {
                 var initialHour = time / 60 / 60
                 var initialMinutes = time / 60 % 60
                 var initialSeconds = time % 60
@@ -190,7 +189,9 @@ class studyTimer : AppCompatActivity() {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (add == true) {
                                     if (snapshot.exists()) {
-                                        var value2 = snapshot.child("study_time_length").value.toString().toInt()
+                                        var value2 =
+                                            snapshot.child("study_time_length").value.toString()
+                                                .toInt()
                                         total = (value2 + (time / 60))
                                         Log.d("TAG", value2.toString())
                                         Log.d("TAG", (time / 60).toString())
@@ -201,7 +202,8 @@ class studyTimer : AppCompatActivity() {
                                         total = time / 60
                                         Log.d("TAG", "Add new record" + (total).toString())
                                     }
-                                    databaseRefTimeNow.child("study_time_length").setValue(total.toString())
+                                    databaseRefTimeNow.child("study_time_length")
+                                        .setValue(total.toString())
                                 }
                                 add = false
                             }
@@ -226,7 +228,7 @@ class studyTimer : AppCompatActivity() {
                 countdown_timer.start()
 
                 isRunning = true
-            }else{
+            } else {
                 Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
             }
         }
@@ -283,11 +285,11 @@ class studyTimer : AppCompatActivity() {
         btnGenerate.setOnClickListener {
             clickbuttonSFX.start()
 
-            DB_Reference.child("Study Time Record").child(uid).child(current.toString()).child("study_time_length").get().addOnSuccessListener {
-                if(it.value != null){
+            DB_Reference.child("Study Time Record").child(uid).child(current.toString())
+                .child("study_time_length").get().addOnSuccessListener {
+                if (it.value != null) {
                     txtTotalTimeToday.text = "${it.value.toString()} minutes"
-                }
-                else{
+                } else {
                     txtTotalTimeToday.text = "0 minutes"
                 }
             }
@@ -295,12 +297,15 @@ class studyTimer : AppCompatActivity() {
             var totalTimeStudy = 0
 
             DB_Reference.child("Study Time Record").child(uid).get().addOnSuccessListener {
-                if(it.value != null){
+                if (it.value != null) {
                     for (day in 0..6) {
                         period = Period.of(0, 0, day)
 
-                        if(it.child(current.minus(period).toString()).child("study_time_length").value != null){
-                            totalTimeStudy += it.child(current.minus(period).toString()).child("study_time_length").value.toString().toInt()
+                        if (it.child(current.minus(period).toString())
+                                .child("study_time_length").value != null
+                        ) {
+                            totalTimeStudy += it.child(current.minus(period).toString())
+                                .child("study_time_length").value.toString().toInt()
                         }
                     }
                 }
@@ -319,19 +324,19 @@ class studyTimer : AppCompatActivity() {
 
         var _totalseconds = 0
 
-        if(!hours.isEmpty()){
+        if (!hours.isEmpty()) {
             _totalseconds += hours.toInt() * 60 * 60
         }
-        if(!minutes.isEmpty()){
-            if(minutes.toInt() > 59) {
+        if (!minutes.isEmpty()) {
+            if (minutes.toInt() > 59) {
                 errorMsg = "Can't exceed 60."
                 return 1
             }
 
             _totalseconds += minutes.toInt() * 60
         }
-        if(!seconds.isEmpty()){
-            if(seconds.toInt() > 59) {
+        if (!seconds.isEmpty()) {
+            if (seconds.toInt() > 59) {
                 errorMsg = "Can't exceed 60."
                 return 1
             }
@@ -339,15 +344,14 @@ class studyTimer : AppCompatActivity() {
             _totalseconds += seconds.toInt()
         }
 
-        if(_totalseconds != 0){
+        if (_totalseconds != 0) {
             if ((_totalseconds > 2 * 60 * 60) or (_totalseconds < 30 * 60)) {
                 errorMsg = "Maximum 120 Minutes. Minimum 30 Minutes."
                 return 1
-            }
-            else {
+            } else {
                 time = _totalseconds
             }
-        }else{
+        } else {
             errorMsg = "Please enter the timer."
             return 1
         }

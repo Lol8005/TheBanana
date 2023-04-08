@@ -85,12 +85,12 @@ class RegisterAccountFirebase : AppCompatActivity() {
             email = edt_email.text.toString()
             password = edt_password.text.toString()
 
-            if (username != "" || email != "" || password != ""){
+            if (username != "" || email != "" || password != "") {
                 edt_username.setText("")
                 edt_email.setText("")
                 edt_password.setText("")
                 edtCode.setText("")
-            }else{
+            } else {
                 Toast.makeText(this, "Nothing to clear!!!", Toast.LENGTH_LONG).show()
             }
         }
@@ -101,33 +101,38 @@ class RegisterAccountFirebase : AppCompatActivity() {
             email = edt_email.text.toString()
             password = edt_password.text.toString()
 
-            if(username != "" && email != "" && password != ""){
-                if(checkIfTextEnterFulfillRequirement()){
+            if (username != "" && email != "" && password != "") {
+                if (checkIfTextEnterFulfillRequirement()) {
                     resources.openRawResource(R.raw.badwords).bufferedReader().use {
                         var illegalWord = false
 
-                        for(word in it.readText().split("\n")){
-                            if(username.contains(word.trim())){
+                        for (word in it.readText().split("\n")) {
+                            if (username.contains(word.trim())) {
                                 illegalWord = true
                                 break
                             }
                         }
 
-                        if(illegalWord){
-                            Toast.makeText(this, "Please enter appropriate username!!", Toast.LENGTH_LONG).show()
-                        }else{
+                        if (illegalWord) {
+                            Toast.makeText(
+                                this,
+                                "Please enter appropriate username!!",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
                             performSignUp()
                         }
                     }
-                }else{
-                    Toast.makeText(this, "Input not fulfill requirement!!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Input not fulfill requirement!!", Toast.LENGTH_LONG)
+                        .show()
                 }
-            }else{
+            } else {
                 Toast.makeText(this, "Please enter your information!!", Toast.LENGTH_LONG).show()
             }
         }
 
-        btn_go_login.setOnClickListener{
+        btn_go_login.setOnClickListener {
             startActivity(Intent(this, LoginAccountFirebase::class.java))
             overridePendingTransition(0, 0) //Remove transition animation
 
@@ -135,12 +140,12 @@ class RegisterAccountFirebase : AppCompatActivity() {
         }
 
         adminRoleField.visibility = View.GONE
-        btnRole.setOnClickListener{
-            if(role == "student"){
+        btnRole.setOnClickListener {
+            if (role == "student") {
                 role = "admin"
                 btnRole.text = role
                 adminRoleField.visibility = View.VISIBLE
-            }else{
+            } else {
                 role = "student"
                 btnRole.text = role
                 adminRoleField.visibility = View.GONE
@@ -150,49 +155,51 @@ class RegisterAccountFirebase : AppCompatActivity() {
         //endregion
     }
 
-    private fun performSignUp(){
+    private fun performSignUp() {
         username = edt_username.text.toString()
         email = edt_email.text.toString()
         password = edt_password.text.toString()
 
         var pushID = ""
 
-        if(role == "student"){
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){ task ->
-                if (task.isSuccessful) {
+        if (role == "student") {
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
 
-                    val id = auth.currentUser?.uid.toString()
-                    DB_Reference.child("Users").child(id).child("username").setValue(username)
-                    //TODO: Added Total_Banana_Earned
-                    DB_Reference.child("Users").child(id).child("Total_Banana_Earned").setValue(0)
-                    DB_Reference.child("Users").child(id).child("role").setValue("student")
+                        val id = auth.currentUser?.uid.toString()
+                        DB_Reference.child("Users").child(id).child("username").setValue(username)
+                        //TODO: Added Total_Banana_Earned
+                        DB_Reference.child("Users").child(id).child("Total_Banana_Earned")
+                            .setValue(0)
+                        DB_Reference.child("Users").child(id).child("role").setValue("student")
 
-                    SLD.username = username
-                    SLD.email = email
-                    SLD.password = password
+                        SLD.username = username
+                        SLD.email = email
+                        SLD.password = password
 
-                    SLD.role = "student"
+                        SLD.role = "student"
 
-                    SLD.SaveData(this)
+                        SLD.SaveData(this)
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
 
-                    finish()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        finish()
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-        }else{
+        } else {
             DB_Reference.child("Activation Code").get().addOnSuccessListener {
                 var code = edtCode.text.toString()
 
                 var codeExist = false
 
-                if(it.exists()){
-                    for(codeDB in it.children){
-                        if(codeDB.value.toString() == code){
+                if (it.exists()) {
+                    for (codeDB in it.children) {
+                        if (codeDB.value.toString() == code) {
                             codeExist = true
                             pushID = codeDB.key.toString()
                             break
@@ -200,40 +207,45 @@ class RegisterAccountFirebase : AppCompatActivity() {
                     }
                 }
 
-                if(codeExist){
-                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){ task ->
-                        if (task.isSuccessful) {
+                if (codeExist) {
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
 
-                            val id = auth.currentUser?.uid.toString()
-                            DB_Reference.child("Users").child(id).child("username").setValue(username)
-                            DB_Reference.child("Users").child(id).child("role").setValue("admin")
-                            DB_Reference.child("Activation Code").child(pushID).removeValue()
+                                val id = auth.currentUser?.uid.toString()
+                                DB_Reference.child("Users").child(id).child("username")
+                                    .setValue(username)
+                                DB_Reference.child("Users").child(id).child("role")
+                                    .setValue("admin")
+                                DB_Reference.child("Activation Code").child(pushID).removeValue()
 
-                            SLD.username = username
-                            SLD.email = email
-                            SLD.password = password
+                                SLD.username = username
+                                SLD.email = email
+                                SLD.password = password
 
-                            SLD.role = "admin"
+                                SLD.role = "admin"
 
-                            SLD.SaveData(this)
+                                SLD.SaveData(this)
 
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
 
-                            finish()
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                                finish()
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
-                    }
-                }else{
-                    Toast.makeText(this, "Please enter valid activation code!!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Please enter valid activation code!!", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }
     }
 
-    private fun checkIfTextEnterFulfillRequirement(): Boolean{
+    private fun checkIfTextEnterFulfillRequirement(): Boolean {
         return username.length >= 6 && password.length >= 8 && !edt_username.text.contains(Regex("\\W"))
     }
 

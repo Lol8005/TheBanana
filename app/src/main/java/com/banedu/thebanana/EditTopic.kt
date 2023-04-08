@@ -2,16 +2,14 @@ package com.banedu.thebanana
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,13 +18,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
 
-class EditTopic : AppCompatActivity(), questionRecordListener  {
+class EditTopic : AppCompatActivity(), questionRecordListener {
 
     lateinit var questionCV: RecyclerView
     lateinit var questionRecordRVAdapter: QuestionRecordRVAdapter
     var questionRecord = ArrayList<QuestionRecordFormat>()
 
-    lateinit var btn_return:ImageButton
+    lateinit var btn_return: ImageButton
     lateinit var btnAddQuestion: ImageButton
     lateinit var btnSaveTopic: ImageButton
 
@@ -55,69 +53,72 @@ class EditTopic : AppCompatActivity(), questionRecordListener  {
 
         //endregion
 
-        val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val questionClass = result.data?.getParcelableExtra<QuestionRecordFormat>("QuestionRecordFormat")
+        val resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val questionClass =
+                        result.data?.getParcelableExtra<QuestionRecordFormat>("QuestionRecordFormat")
 
-                if (questionClass != null) {
-                    questionRecord.add(questionClass)
+                    if (questionClass != null) {
+                        questionRecord.add(questionClass)
 
-                    questionRecordRVAdapter.notifyDataSetChanged()
+                        questionRecordRVAdapter.notifyDataSetChanged()
+                    }
                 }
             }
-        }
 
         var passedRecord: TopicRecordFormat? = null
         passedRecord = intent.getParcelableExtra("topicRecord") as TopicRecordFormat?
 
-        if(passedRecord != null){
-            DB_Reference.child("Topic").child(auth.uid.toString()).child(passedRecord.topicID).get().addOnSuccessListener {
-                edtTopicName.setText(it.child("TopicName").value.toString())
+        if (passedRecord != null) {
+            DB_Reference.child("Topic").child(auth.uid.toString()).child(passedRecord.topicID).get()
+                .addOnSuccessListener {
+                    edtTopicName.setText(it.child("TopicName").value.toString())
 
-                addQuestionRecordsFromFirebase(it)
-            }
+                    addQuestionRecordsFromFirebase(it)
+                }
         }
 
 
         questionCV = findViewById(R.id.questionCV)
-        questionCV.layoutManager= LinearLayoutManager(this)
+        questionCV.layoutManager = LinearLayoutManager(this)
         questionRecordRVAdapter = QuestionRecordRVAdapter(questionRecord, this, resultLauncher)
         questionCV.adapter = questionRecordRVAdapter
 
-        btn_return.setOnClickListener{
+        btn_return.setOnClickListener {
             finish()
         }
 
-        btnAddQuestion.setOnClickListener{
+        btnAddQuestion.setOnClickListener {
             val intent = Intent(this, EditQuestion::class.java)
             resultLauncher.launch(intent)
         }
 
-        btnSaveTopic.setOnClickListener{
+        btnSaveTopic.setOnClickListener {
             //check got question or not
-            if(edtTopicName.text.isEmpty()){
+            if (edtTopicName.text.isEmpty()) {
                 Toast.makeText(this, "Please enter topic name", Toast.LENGTH_SHORT).show()
-            }else{
-                if(passedRecord?.topicID == null){
+            } else {
+                if (passedRecord?.topicID == null) {
                     val uid = auth.uid.toString()
                     var path = DB_Reference.child("Topic").child(uid).push()
 
                     path.child("TopicName").setValue(edtTopicName.text.toString())
 
-                    for(index in questionRecord){
+                    for (index in questionRecord) {
                         val pos = questionRecord.indexOf(index).toString()
                         path.child(pos).child("question").setValue(index.question)
                         path.child(pos).child("correctAns").setValue(index.correctAns)
                         path.child(pos).child("wrongAns1").setValue(index.wrongAns1)
                         path.child(pos).child("wrongAns2").setValue(index.wrongAns2)
                     }
-                }else{
+                } else {
                     val uid = auth.uid.toString()
                     var path = DB_Reference.child("Topic").child(uid).child(passedRecord.topicID)
 
                     path.child("TopicName").setValue(edtTopicName.text.toString())
 
-                    for(index in questionRecord){
+                    for (index in questionRecord) {
                         val pos = questionRecord.indexOf(index).toString()
                         path.child(pos).child("question").setValue(index.question)
                         path.child(pos).child("correctAns").setValue(index.correctAns)
@@ -151,13 +152,18 @@ class EditTopic : AppCompatActivity(), questionRecordListener  {
     }
 }
 
-data class QuestionRecordFormat(var question: String, var correctAns: String, var wrongAns1: String, var wrongAns2: String):
+data class QuestionRecordFormat(
+    var question: String,
+    var correctAns: String,
+    var wrongAns1: String,
+    var wrongAns2: String
+) :
     Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

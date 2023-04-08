@@ -11,20 +11,23 @@ class HideSystemBar {
 
     private lateinit var window: Window
 
-    private val onWindowInsetApplied: (view: View, window: WindowInsets) -> WindowInsets = { view, windowInsets ->
+    private val onWindowInsetApplied: (view: View, window: WindowInsets) -> WindowInsets =
+        { view, windowInsets ->
 
-        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+            windowInsetsController.systemBarsBehavior =
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
 
-        windowInsets
-    }
+            windowInsets
+        }
 
-    fun hide(_window: Window){
+    fun hide(_window: Window) {
 
         window = _window
         window.decorView.setOnApplyWindowInsetsListener(onWindowInsetApplied)
 
-        WindowCompat.getInsetsController(window, window.decorView).hide(WindowInsetsCompat.Type.statusBars())
+        WindowCompat.getInsetsController(window, window.decorView)
+            .hide(WindowInsetsCompat.Type.statusBars())
     }
 }
