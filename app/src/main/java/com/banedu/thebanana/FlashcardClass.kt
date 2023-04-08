@@ -45,7 +45,7 @@ class FlashcardClass : AppCompatActivity() {
         shuffleButton = findViewById(R.id.shuffleButton)
         btnBackHomeFromFC = findViewById(R.id.btnBackHomeFromFC)
 
-        // Create the math and science flashcards
+        // Create the math, science, and sejarah flashcards
         val mathFlashcards = listOf(
             Flashcard("What is 2 + 2?", "4"),
             Flashcard("What is the square root of 64?", "8"),
@@ -53,7 +53,7 @@ class FlashcardClass : AppCompatActivity() {
             Flashcard("What is the difference between 18 and 7?", "11"),
             Flashcard("What is the product of 5 and 6?", "30"),
             Flashcard("What is the quotient of 20 and 4", "5"),
-            Flashcard("What is the value of e, tha mathematical constant?", "2.71828"),
+            Flashcard("How many sides does a heptagon have?", "7"),
             Flashcard("What is the area of a rectangle with length 10 and width 5?", "50"),
             Flashcard("What is the circumference of a circle with radius 4?", "25.13"),
             Flashcard("What is the sum of the first 10 positive integers?", "55"),
@@ -81,13 +81,30 @@ class FlashcardClass : AppCompatActivity() {
             Flashcard("What is the name of the process by which water evaporates from the leaves of plants?", "Transpiration")
         )
 
+        val sejarahFlashcards = listOf(
+            Flashcard("Mengapakah Dol Said melakukan penentangan terhadap pihak British?","Enggan membayar cukai hasil tahunan yang dikenakan British"),
+            Flashcard("Bagaimanakah British meluaskan kuasa untuk menduduki Pulau Pinang?","Tipu helah dan rundingan"),
+            Flashcard("Yang manakah menerangkan Zaman Prasejarah ?", "Manusia masih belum mengenali tulisan"),
+            Flashcard("Apakah kegiatan Zaman Paleolitik:", "Memungut hasil hutan"),
+            Flashcard("Sejarah berasal dari kata syajarotun yang berarti....", "Pohon"),
+            Flashcard("Kerajaan Angkor telah membina baray. Apakah fungsi baray kepada masyarakat tersebut?", "Tempat penyimpanan air"),
+            Flashcard("Pusat pemerintahan Kesultanan Johor Riau sering berpindah-randah. Mengapakah berlaku demikian?", "Mengelakkan ancaman musuh"),
+            Flashcard("Apakah maksud civitas?", "Kota"),
+            Flashcard("Kerajaan manakah yang melantik seorang wanita sebagai pemerintah?", "Majapahit"),
+            Flashcard("Antara berikut, yang manakah merupakan peristiwa bersejarah dalam kehidupan anda?", "Hari dilahirkan"),
+            Flashcard("Apakah yang perlu dilakukan oleh ahli sejarah supaya tafsiran sejarah boleh menjadikan sesuatu peristiwa itu bermakna?", "Menjalankan penyelidikan"),
+            Flashcard("Apakah peralatan utama yang digunakan oleh manusia Zaman Paleolitik?", "Peralatan Batu"),
+            Flashcard("Siapakah pegawai SHTI yang menggunakan tipu helah bagi mendapatkan Pulau Pinang?", "Francis Light"),
+            Flashcard("Apakah ciri-ciri penempatan Zaman Neolitik?",  "Wujud sistem bermasyarakat"),
+            Flashcard("Tarikh Kemerdekaan Tanah Melayu", "31 Ogos 1957")
+        )
+
         btnBackHomeFromFC.setOnClickListener {
-            val intent = Intent(this, index::class.java)
-            startActivity(intent)
+            finish()
         }
 
         // Creates a list of options for the flashcard subject spinner
-        val flashcardOptions = listOf("Math", "Science")
+        val flashcardOptions = listOf("Math", "Science", "Sejarah")
         // Create an ArrayAdapter to display the options in the spinner
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, flashcardOptions)
         // Sets the ArrayAdapter as the adapter for the flashcard subject spinner
@@ -99,8 +116,10 @@ class FlashcardClass : AppCompatActivity() {
                 // When a subject is selected from the spinner, set the current flashcards and reset the index
                 if (position == 0) {
                     currentFlashcards = mathFlashcards
-                } else {
+                } else if(position == 1){
                     currentFlashcards = scienceFlashcards
+                }else{
+                    currentFlashcards = sejarahFlashcards
                 }
                 currentIndex = 0
                 showCurrentFlashcard()

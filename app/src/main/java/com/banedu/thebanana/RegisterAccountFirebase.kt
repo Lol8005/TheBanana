@@ -175,6 +175,9 @@ class RegisterAccountFirebase : AppCompatActivity() {
 
                     SLD.SaveData(this)
 
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
@@ -213,6 +216,9 @@ class RegisterAccountFirebase : AppCompatActivity() {
                             SLD.role = "admin"
 
                             SLD.SaveData(this)
+
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
 
                             finish()
                         } else {

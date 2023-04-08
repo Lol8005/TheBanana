@@ -131,6 +131,9 @@ class LoginAccountFirebase : AppCompatActivity() {
 
                         SLD.SaveData(this)
 
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+
                         finish()
                     }
                 } else {
