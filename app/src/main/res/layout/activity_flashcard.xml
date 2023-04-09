@@ -5,7 +5,6 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF4BD"
     tools:context=".FlashcardClass">
 
     <LinearLayout
@@ -55,6 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
     <LinearLayout
+        android:id="@+id/linearLayout21"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -88,7 +88,7 @@
         android:layout_marginStart="96dp"
         android:layout_marginEnd="96dp"
         android:layout_marginBottom="75dp"
-        android:backgroundTint="#9CCC65"
+        android:backgroundTint="#FFD700"
         android:fontFamily="@font/nice_sugar"
         android:text="Answer"
         android:textSize="24sp"
@@ -102,7 +102,7 @@
         android:layout_height="60dp"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="150dp"
-        android:backgroundTint="#43A047"
+        android:backgroundTint="#F3BC50"
         android:fontFamily="@font/nice_sugar"
         android:text="Next"
         android:textSize="20sp"
@@ -113,9 +113,9 @@
         android:id="@+id/shuffleButton"
         android:layout_width="130dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp"
         android:layout_marginBottom="150dp"
-        android:backgroundTint="#43A047"
+        android:backgroundTint="#F3BC50"
         android:fontFamily="@font/nice_sugar"
         android:text="Shuffle"
         android:textSize="20sp"
