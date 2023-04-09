@@ -146,8 +146,8 @@ class FlashcardClass : AppCompatActivity() {
                 "Majapahit"
             ),
             Flashcard(
-                "Antara berikut, yang manakah merupakan peristiwa bersejarah dalam kehidupan anda?",
-                "Hari dilahirkan"
+                "Tarikh Kemerdekaan Tanah Malaysia",
+                "16 September 1963"
             ),
             Flashcard(
                 "Apakah yang perlu dilakukan oleh ahli sejarah supaya tafsiran sejarah boleh menjadikan sesuatu peristiwa itu bermakna?",
